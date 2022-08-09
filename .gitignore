@@ -3,3 +3,4 @@
 /api/build/
 /bungee/build/
 /plugins/auth/.gradle/
+/.idea

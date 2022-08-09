@@ -1,6 +1,8 @@
 rootProject.name = 'hyneo-minecraft'
 include 'api'
 include 'bungee'
+
 include 'plugins'
-include 'auth'
+
+include 'plugins:auth'
 

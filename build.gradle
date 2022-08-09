@@ -12,3 +12,5 @@ subprojects {
     }
 }
 
+ext.pluginsDir = rootProject.buildDir.path + '/plugins'
+
