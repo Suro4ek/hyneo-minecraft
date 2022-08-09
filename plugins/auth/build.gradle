@@ -1,19 +1,32 @@
-plugins {
-    id 'java'
+subprojects {
+    jar {
+        manifest {
+            attributes 'Plugin-Class': "${pluginClass}",
+                    'Plugin-Id': "${pluginId}",
+                    'Plugin-Version': "${archiveVersion}",
+                    'Plugin-Provider': "${pluginProvider}"
+        }
+    }
+
+    task plugin(type: Jar) {
+        archiveBaseName = "plugin-${pluginId}"
+        into('classes') {
+            with jar
+        }
+        into('lib') {
+            from configurations.compile
+        }
+        archiveExtension ='zip'
+    }
+
+    task assemblePlugin(type: Copy) {
+        from plugin
+        into pluginsDir
+    }
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
-repositories {
-    mavenCentral()
+task assemblePlugins(type: Copy) {
+    dependsOn subprojects.assemblePlugin
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-
-test {
-    useJUnitPlatform()
-}
+build.dependsOn project.tasks.assemblePlugins
