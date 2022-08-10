@@ -10,4 +10,9 @@ public class PathImpl implements Path {
     public File getDataFolder() {
         return ProxyMain.getInstance().getDataFolder();
     }
+
+    @Override
+    public boolean isProxy() {
+        return true;
+    }
 }
