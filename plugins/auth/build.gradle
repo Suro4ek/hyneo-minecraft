@@ -1,8 +1,13 @@
+repositories {
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // This lets gradle find the BungeeCord files online
+}
+
 dependencies {
     compileOnly project(':api')
     compileOnly(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}") {
         exclude group: "org.slf4j"
     }
+    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
 }
 

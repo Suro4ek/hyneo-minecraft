@@ -3,20 +3,24 @@ subprojects {
         manifest {
             attributes 'Plugin-Class': "${pluginClass}",
                     'Plugin-Id': "${pluginId}",
-                    'Plugin-Version': "${archiveVersion}",
+                    'Plugin-Version': "${pluginversion}",
                     'Plugin-Provider': "${pluginProvider}"
         }
     }
 
+    configurations {
+        pluginDeps.extendsFrom implementation
+    }
+
     task plugin(type: Jar) {
-        archiveBaseName = "plugin-${pluginId}"
+        archiveBaseName.set("${pluginId}")
         into('classes') {
             with jar
         }
         into('lib') {
-            from configurations.runtimeClasspath
+            from configurations.pluginDeps
         }
-        archiveExtension ='zip'
+        archiveExtension.set('zip')
     }
 
     task assemblePlugin(type: Copy) {

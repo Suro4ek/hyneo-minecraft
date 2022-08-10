@@ -1,5 +1,6 @@
 package eu.suro.auth;
 
+
 import eu.suro.api.module.Module;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
@@ -13,12 +14,14 @@ public class AuthMain extends Plugin {
      *
      * @param wrapper
      */
-    public AuthMain(PluginWrapper wrapper) {
+    public AuthMain(PluginWrapper wrapper)
+    {
         super(wrapper);
     }
 
     @Override
     public void start() {
+        System.out.println("START");
         super.start();
     }
 
@@ -26,17 +29,28 @@ public class AuthMain extends Plugin {
     public void stop() {
         super.stop();
     }
-
     @Extension
-    public static class Auth implements Module{
+    public static class AuthModule extends Module {
+
         @Override
-        public void registerCommands() {
-            B
+        public void initBukkit() {
+            System.out.println("START1");
         }
 
         @Override
-        public void registerListeners() {
+        public String getName() {
+            return "Auth";
+        }
 
+        @Override
+        public boolean configExists() {
+            return true;
+        }
+
+        @Override
+        public void initProxy() {
+            System.out.println("START2");
+            new AuthProxy();
         }
     }
 }

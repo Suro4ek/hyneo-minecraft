@@ -1,5 +1,57 @@
+buildscript {
+    ext {
+        // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-bom
+        protobufVersion = '3.19.2'
+        // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-gradle-plugin
+        protobufPluginVersion = '0.8.18'
+        // https://mvnrepository.com/artifact/io.grpc/grpc-bom
+        grpcVersion = '1.47.0-SNAPSHOT'
+    }
+}
+
+plugins {
+    id "com.google.protobuf" version "${protobufPluginVersion}"
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.19.2"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.47.0"
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "$projectDir/proto"
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+
 dependencies {
+    runtimeOnly 'io.grpc:grpc-netty-shaded:1.47.0'
+
+    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
+
+    implementation 'io.grpc:grpc-protobuf:1.47.0'
+    implementation 'io.grpc:grpc-stub:1.47.0'
+    implementation "com.google.protobuf:protobuf-java-util:3.19.2"
     implementation group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    implementation group: 'com.electronwill.night-config', name: 'yaml', version: '3.6.5'
 }
+
 
