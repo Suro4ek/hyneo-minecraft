@@ -43,6 +43,10 @@ public class ProxyMain extends Plugin {
         handler.getManager().stopPlugins();
     }
 
+    public static ManagedChannel getChannel() {
+        return channel;
+    }
+
     public void startGRPCClient(){
         ChannelCredentials credentials = InsecureChannelCredentials.create();
         channel = Grpc.newChannelBuilder(config.get("grpc.host")+":"+config.get("grpc.port"),
