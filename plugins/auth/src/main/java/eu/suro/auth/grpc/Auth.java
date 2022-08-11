@@ -22,4 +22,8 @@ public class Auth {
                         .buildPartial());
         return user.getUser();
     }
+
+    public void Register(){
+
+    }
 }

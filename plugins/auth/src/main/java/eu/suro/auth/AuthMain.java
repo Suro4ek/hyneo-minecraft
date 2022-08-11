@@ -1,6 +1,7 @@
 package eu.suro.auth;
 
 import eu.suro.api.module.Module;
+import eu.suro.auth.commands.RegisterCommand;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
@@ -51,6 +52,7 @@ public class AuthMain extends Plugin {
         public void initProxy() {
             AuthGrpc.AuthStub stub = AuthGrpc.newStub(getChannel());
             AuthGrpc.AuthBlockingStub blockingStub = AuthGrpc.newBlockingStub(getChannel());
+            RegisterCommand(RegisterCommand.class);
         }
     }
 }
