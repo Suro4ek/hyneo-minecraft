@@ -15,4 +15,6 @@ public interface Path {
     <T> void RegisterListener(T listener);
 
     <T> void RegisterCommand(T command);
+
+    java.util.logging.Logger getLogger();
 }

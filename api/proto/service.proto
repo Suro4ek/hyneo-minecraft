@@ -3,9 +3,10 @@ syntax = "proto3";
 package server;
 
 import "auth.proto";
-option go_package = "eu.suro/hyneo/protos/vk";
+option go_package = "protos/service";
 
-service VK {
+
+service Service {
     rpc NotifyServer(NotifyServerRequest) returns (Empty) {}
     rpc Join(JoinRequest) returns (Empty) {}
     rpc CheckCode(CheckCodeRequest) returns (Empty) {}

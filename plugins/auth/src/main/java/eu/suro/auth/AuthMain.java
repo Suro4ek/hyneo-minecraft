@@ -1,11 +1,15 @@
 package eu.suro.auth;
 
+import com.google.common.cache.CacheBuilder;
 import eu.suro.api.module.Module;
 import eu.suro.auth.commands.RegisterCommand;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
 import server.AuthGrpc;
+
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class AuthMain extends Plugin {
     /**
@@ -32,6 +36,20 @@ public class AuthMain extends Plugin {
     }
     @Extension
     public static class AuthModule extends Module {
+
+        //cache users
+        public LoadingCache<String, > users = CacheBuilder
+                .newBuilder()
+                .maximumSize(100)
+                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .build(
+                        new CacheLoader<String, UserOuterClass.UserM>() {
+                            @Override
+                            public UserOuterClass.UserM load(String key) throws Exception {
+                                return user.getUser(key.toLowerCase(Locale.ROOT));
+                            }
+                        }
+                );
 
         @Override
         public void initBukkit() {

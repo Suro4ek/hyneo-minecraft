@@ -5,8 +5,7 @@ import eu.suro.api.path.Path;
 import io.grpc.ManagedChannel;
 import org.pf4j.Extension;
 import org.pf4j.ExtensionPoint;
-import org.pf4j.Plugin;
-import org.pf4j.PluginWrapper;
+import java.util.logging.Logger;
 
 public abstract class Module implements ExtensionPoint {
 
@@ -15,9 +14,10 @@ public abstract class Module implements ExtensionPoint {
     private Path path;
     protected ManagedChannel channel;
 
-    public void setPath(Path path) {
+    protected void setPath(Path path) {
         this.path = path;
     }
+
     public void setConfig(FileConfig config) {
         this.config = config;
     }
@@ -28,6 +28,10 @@ public abstract class Module implements ExtensionPoint {
 
     public ManagedChannel getChannel() {
         return channel;
+    }
+
+    public Logger getLogger(){
+        return this.path.getLogger();
     }
 
     public void setChannel(ManagedChannel channel) {
