@@ -23,8 +23,8 @@ public class ModuleHandler {
             if(!plugins.toFile().exists()){
                 plugins.toFile().mkdirs();
             }
+            module.setPath(path);
             module.setChannel(path.getChannel());
-
             if(module.configExists()){
                 FileConfig config = FileConfig.of(plugins.resolve("config.yml"));
                 if(!config.getFile().exists()){

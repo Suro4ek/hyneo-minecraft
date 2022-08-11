@@ -1,10 +1,10 @@
 package eu.suro.auth;
 
-
 import eu.suro.api.module.Module;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
+import server.AuthGrpc;
 
 public class AuthMain extends Plugin {
     /**
@@ -34,7 +34,7 @@ public class AuthMain extends Plugin {
 
         @Override
         public void initBukkit() {
-            System.out.println("START1");
+            throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
@@ -49,8 +49,8 @@ public class AuthMain extends Plugin {
 
         @Override
         public void initProxy() {
-            System.out.println("START2");
-            new AuthProxy();
+            AuthGrpc.AuthStub stub = AuthGrpc.newStub(getChannel());
+            AuthGrpc.AuthBlockingStub blockingStub = AuthGrpc.newBlockingStub(getChannel());
         }
     }
 }

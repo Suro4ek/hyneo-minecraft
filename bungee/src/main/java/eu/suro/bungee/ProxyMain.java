@@ -1,6 +1,7 @@
 package eu.suro.bungee;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
+import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
 import eu.suro.api.module.ModuleHandler;
 import eu.suro.api.path.Path;
 import eu.suro.bungee.path.PathImpl;
@@ -11,9 +12,12 @@ import io.grpc.ManagedChannel;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProxyMain extends Plugin {
 
+    public List<Class<?>> commands = new ArrayList<>();
     static ProxyMain instance;
     static ManagedChannel channel;
     ModuleHandler handler;
@@ -22,13 +26,23 @@ public class ProxyMain extends Plugin {
     @Override
     public void onEnable() {
         instance = this;
+        //create plugins folder if not exists
         File file = new File(getDataFolder()+"/plugins/");
         if (!file.exists()) {
             file.mkdirs();
         }
         Path path = new PathImpl();
-//        startGRPCClient();
-        handler =  new ModuleHandler(path);
+        loadConfig();
+        startGRPCClient();
+        //load modules
+        handler = new ModuleHandler(path);
+        //register commands
+        LiteBungeeFactory.builder(this)
+                .command(commands.toArray(new Class<?>[0]))
+                .register();
+    }
+
+    public void loadConfig(){
         config = FileConfig.of(getDataFolder().getPath()+"/config.yml");
         if(!config.getFile().exists()) {
             config.set("grpc.host", "localhost");

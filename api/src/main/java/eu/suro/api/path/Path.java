@@ -11,4 +11,8 @@ public interface Path {
     boolean isProxy();
 
     ManagedChannel getChannel();
+
+    <T> void RegisterListener(T listener);
+
+    <T> void RegisterCommand(T command);
 }
