@@ -3,15 +3,15 @@ package eu.suro.api.module;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import eu.suro.api.path.Path;
 import io.grpc.ManagedChannel;
-import org.pf4j.Extension;
 import org.pf4j.ExtensionPoint;
 import java.util.logging.Logger;
 
 public abstract class Module implements ExtensionPoint {
 
-    protected FileConfig config;
+    public FileConfig config;
 
     private Path path;
+
     protected ManagedChannel channel;
 
     protected void setPath(Path path) {
@@ -42,7 +42,7 @@ public abstract class Module implements ExtensionPoint {
         path.RegisterCommand(command);
     }
 
-    public void RegisterListener(Class<?> listener) {
+    public <T> void RegisterListener(T listener) {
         path.RegisterListener(listener);
     }
 

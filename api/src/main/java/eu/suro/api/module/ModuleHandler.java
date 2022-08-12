@@ -14,6 +14,7 @@ public class ModuleHandler {
     private List<Module> moduleList;
 
     public ModuleHandler(Path path) {
+
         manager = new DefaultPluginManager(Paths.get(path.getDataFolder()+"/plugins"));
         manager.loadPlugins();
         manager.startPlugins();

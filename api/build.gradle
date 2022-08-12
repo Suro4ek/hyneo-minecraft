@@ -39,12 +39,13 @@ sourceSets {
 repositories {
     mavenCentral()
     maven { url "https://repo.panda-lang.org/releases" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // This lets gradle find the BungeeCord files online
+
 }
 
 
 dependencies {
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.47.0'
-
     annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
     implementation 'dev.rollczi.litecommands:core:2.4.2'
     implementation 'io.grpc:grpc-protobuf:1.47.0'

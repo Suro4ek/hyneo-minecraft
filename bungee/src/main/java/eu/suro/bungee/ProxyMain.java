@@ -45,6 +45,7 @@ public class ProxyMain extends Plugin {
     public void loadConfig(){
         config = FileConfig.of(getDataFolder().getPath()+"/config.yml");
         if(!config.getFile().exists()) {
+
             config.set("grpc.host", "localhost");
             config.set("grpc.port", "50051");
             config.save();
