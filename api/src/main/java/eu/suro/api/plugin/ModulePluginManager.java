@@ -2,14 +2,19 @@ package eu.suro.api.plugin;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
+import com.google.inject.Singleton;
 import org.pf4j.*;
 import org.pf4j.PluginDescriptor;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-
+@Singleton
 public class ModulePluginManager extends DefaultPluginManager {
+
+    private final Set<String> disabledPlugins = new HashSet<>();
 
     public ModulePluginManager(Path path)
     {
@@ -71,7 +76,7 @@ public class ModulePluginManager extends DefaultPluginManager {
         for (PluginWrapper plugin : plugins.values())
         {
             descriptors.add(plugin.getDescriptor());
-            for (PluginDependency dependency : plugin.getDescriptor().getDependencies())
+            for (org.pf4j.PluginDependency dependency : plugin.getDescriptor().getDependencies())
             {
                 reverseDepMap.put(dependency.getPluginId(), plugin.getPluginId());
             }
@@ -80,7 +85,7 @@ public class ModulePluginManager extends DefaultPluginManager {
         for (PluginWrapper plugin : resolvedPlugins)
         {
             descriptors.add(plugin.getDescriptor());
-            for (PluginDependency dependency : plugin.getDescriptor().getDependencies())
+            for (org.pf4j.PluginDependency dependency : plugin.getDescriptor().getDependencies())
             {
                 reverseDepMap.put(dependency.getPluginId(), plugin.getPluginId());
             }
@@ -133,5 +138,170 @@ public class ModulePluginManager extends DefaultPluginManager {
         return RuntimeMode.DEPLOYMENT;
     }
 
+    @Override
+    public PluginState stopPlugin(String pluginId) {
+        if(!plugins.containsKey(pluginId))
+        {
+            throw new IllegalArgumentException("Plugin with id " + pluginId + " not found");
+        }
 
+        PluginWrapper pluginWrapper = getPlugin(pluginId);
+        PluginDescriptor pluginDescriptor = pluginWrapper.getDescriptor();
+        PluginState pluginState = pluginWrapper.getPluginState();
+        if(pluginState == PluginState.STOPPED || pluginState == PluginState.DISABLED)
+        {
+            return pluginState;
+        }
+
+        pluginWrapper.getPlugin().stop();
+        pluginWrapper.setPluginState(PluginState.STOPPED);
+        firePluginStateEvent(new PluginStateEvent(this, pluginWrapper, pluginState));
+
+        return pluginWrapper.getPluginState();
+    }
+
+    @Override
+    public boolean unloadPlugin(String pluginId) {
+        try
+        {
+            PluginState pluginState = stopPlugin(pluginId);
+            if (PluginState.STARTED == pluginState)
+            {
+                return false;
+            }
+
+            PluginWrapper pluginWrapper = getPlugin(pluginId);
+
+            plugins.remove(pluginId);
+            getResolvedPlugins().remove(pluginWrapper);
+
+            firePluginStateEvent(new PluginStateEvent(this, pluginWrapper, pluginState));
+
+            Map<String, ClassLoader> pluginClassLoaders = getPluginClassLoaders();
+            if (pluginClassLoaders.containsKey(pluginId))
+            {
+                ClassLoader classLoader = pluginClassLoaders.remove(pluginId);
+                if (classLoader instanceof Closeable)
+                {
+                    try
+                    {
+                        ((Closeable) classLoader).close();
+                    }
+                    catch (IOException e)
+                    {
+                        throw new PluginRuntimeException(e, "Cannot close classloader");
+                    }
+                }
+            }
+
+            return true;
+        }
+        catch (IllegalArgumentException e)
+        {
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean deletePlugin(String pluginId)
+    {
+        if (!plugins.containsKey(pluginId))
+        {
+            throw new IllegalArgumentException(String.format("Unknown pluginId %s", pluginId));
+        }
+
+        PluginWrapper pluginWrapper = getPlugin(pluginId);
+        PluginState pluginState = stopPlugin(pluginId);
+        if (PluginState.STARTED == pluginState)
+        {
+
+            return false;
+        }
+
+
+        org.pf4j.Plugin plugin = pluginWrapper.getPlugin();
+
+        if (!unloadPlugin(pluginId))
+        {
+
+            return false;
+        }
+
+        plugin.delete();
+
+        Path pluginPath = pluginWrapper.getPluginPath();
+
+        return pluginRepository.deletePluginPath(pluginPath);
+    }
+
+    @Override
+    protected PluginWrapper loadPluginFromPath(Path pluginPath)
+    {
+        String pluginId = idForPath(pluginPath);
+        if (pluginId != null)
+        {
+            throw new PluginAlreadyLoadedException(pluginId, pluginPath);
+        }
+
+
+        PluginDescriptorFinder pluginDescriptorFinder = getPluginDescriptorFinder();
+
+        PluginDescriptor pluginDescriptor = pluginDescriptorFinder.find(pluginPath);
+        validatePluginDescriptor(pluginDescriptor);
+
+
+        if (disabledPlugins.contains(pluginDescriptor.getPluginId()))
+        {
+
+            return null;
+        }
+
+        pluginId = pluginDescriptor.getPluginId();
+        if (plugins.containsKey(pluginId))
+        {
+            PluginWrapper loadedPlugin = getPlugin(pluginId);
+            throw new PluginRuntimeException();
+        }
+
+
+        String pluginClassName = pluginDescriptor.getPluginClass();
+
+        ClassLoader pluginClassLoader = getPluginLoader().loadPlugin(pluginPath, pluginDescriptor);
+
+        PluginWrapper pluginWrapper = new PluginWrapper(this, pluginDescriptor, pluginPath, pluginClassLoader);
+        pluginWrapper.setPluginFactory(getPluginFactory());
+
+        if (isPluginDisabled(pluginDescriptor.getPluginId()))
+        {
+            pluginWrapper.setPluginState(PluginState.DISABLED);
+        }
+
+        if (!isPluginValid(pluginWrapper))
+        {
+            pluginWrapper.setPluginState(PluginState.DISABLED);
+        }
+
+
+        pluginId = pluginDescriptor.getPluginId();
+
+        plugins.put(pluginId, pluginWrapper);
+        getUnresolvedPlugins().add(pluginWrapper);
+
+        getPluginClassLoaders().put(pluginId, pluginClassLoader);
+
+        return pluginWrapper;
+    }
+
+    void disableLoading(String pluginId)
+    {
+        unloadPlugin(pluginId);
+        disabledPlugins.add(pluginId);
+    }
+
+    private boolean isPluginEligibleForLoading(Path path)
+    {
+        return path.toFile().getName().endsWith(".jar");
+    }
 }

@@ -24,6 +24,10 @@ public class Plugin implements Module, ExtensionPoint {
 
     }
 
+    public Injector getInjector() {
+        return injector;
+    }
+
     public String getName()
     {
         return getClass().getAnnotation(PluginDescriptor.class).name();

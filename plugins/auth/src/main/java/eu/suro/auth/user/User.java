@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class User {
 
+
     private String id;
     private String username;
     private String last_server;

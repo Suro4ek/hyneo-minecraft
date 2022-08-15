@@ -2,7 +2,7 @@ package eu.suro.bungee;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
 import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
-import eu.suro.api.module.ModuleHandler;
+import eu.suro.api.HyNeoApi;
 import eu.suro.api.path.Path;
 import eu.suro.bungee.path.PathImpl;
 import io.grpc.ChannelCredentials;
@@ -19,9 +19,11 @@ public class ProxyMain extends Plugin {
 
     public List<Class<?>> commands = new ArrayList<>();
     static ProxyMain instance;
+
     static ManagedChannel channel;
-    ModuleHandler handler;
     static FileConfig config;
+
+    private HyNeoApi hyNeoApi;
 
     @Override
     public void onEnable() {
@@ -33,9 +35,9 @@ public class ProxyMain extends Plugin {
         }
         Path path = new PathImpl();
         loadConfig();
-        startGRPCClient();
+//        startGRPCClient();
         //load modules
-        handler = new ModuleHandler(path);
+        hyNeoApi = new HyNeoApi(path);
         //register commands
         LiteBungeeFactory.builder(this)
                 .command(commands.toArray(new Class<?>[0]))
@@ -55,7 +57,6 @@ public class ProxyMain extends Plugin {
 
     @Override
     public void onDisable() {
-        handler.getManager().stopPlugins();
     }
 
     public static ManagedChannel getChannel() {

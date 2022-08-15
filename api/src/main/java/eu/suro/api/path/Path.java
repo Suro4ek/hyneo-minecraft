@@ -1,5 +1,6 @@
 package eu.suro.api.path;
 
+import com.google.inject.Singleton;
 import io.grpc.ManagedChannel;
 
 import java.io.File;

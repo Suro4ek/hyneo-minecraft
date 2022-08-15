@@ -1,8 +1,7 @@
 subprojects {
     jar {
         manifest {
-            attributes 'Plugin-Class': "${pluginClass}",
-                    'Plugin-Id': "${pluginId}",
+            attributes 'Plugin-Id': "${pluginId}",
                     'Plugin-Version': "${pluginversion}",
                     'Plugin-Provider': "${pluginProvider}"
         }
