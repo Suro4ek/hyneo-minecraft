@@ -5,5 +5,3 @@ include 'bungee'
 include 'plugins'
 
 include 'plugins:auth'
-
-

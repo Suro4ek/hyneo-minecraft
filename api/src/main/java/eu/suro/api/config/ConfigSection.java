@@ -13,7 +13,6 @@ public @interface ConfigSection {
 
     String description();
 
-    int position();
 
     boolean closeByDefault() default false;
 

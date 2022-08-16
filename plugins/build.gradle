@@ -3,7 +3,8 @@ subprojects {
         manifest {
             attributes 'Plugin-Id': "${pluginId}",
                     'Plugin-Version': "${pluginversion}",
-                    'Plugin-Provider': "${pluginProvider}"
+                    'Plugin-Provider': "${pluginProvider}",
+                    'Plugin-Dependencies': "${pluginDependencies}"
         }
     }
 

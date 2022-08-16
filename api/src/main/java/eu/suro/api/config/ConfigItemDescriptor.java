@@ -31,11 +31,6 @@ public class ConfigItemDescriptor implements ConfigObject
         return item.name();
     }
 
-    @Override
-    public int position()
-    {
-        return item.position();
-    }
 
     public ConfigItem getItem() {
         return item;

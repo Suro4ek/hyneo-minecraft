@@ -16,6 +16,5 @@ dependencies {
     compileOnly 'io.grpc:grpc-stub:1.47.0'
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
     compileOnly 'io.grpc:grpc-protobuf:1.47.0'
-    compileOnly group: 'com.electronwill.night-config', name: 'yaml', version: '3.6.5'
 }
 

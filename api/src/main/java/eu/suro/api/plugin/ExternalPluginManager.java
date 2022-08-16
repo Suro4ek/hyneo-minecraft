@@ -134,6 +134,7 @@ public class ExternalPluginManager {
                     curGroup.add(executorService.submit(() -> {
                         Plugin plugininst;
                         try {
+                            System.out.println("Loading plugin " + pluginClazz.getName());
                             plugininst = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz, init, initConfig);
                             if (plugininst == null)
                             {
@@ -142,6 +143,8 @@ public class ExternalPluginManager {
                             scannedPlugins.add(plugininst);
                         }catch (PluginInstantiationException e)
                         {
+
+                            System.out.println("Failed to load plugin " +e);
                             //log warn
                             return;
                         }
@@ -155,6 +158,7 @@ public class ExternalPluginManager {
                 }
             });
         });
+        System.out.println("Loaded plugins : " + scannedPlugins.size());
 
         //log info loaded plugin and ms
         System.out.println("Loaded plugins " + (System.currentTimeMillis() - start) + "ms");
@@ -163,6 +167,7 @@ public class ExternalPluginManager {
     private Plugin instantiate(List<Plugin> scannedPlugins, Class<Plugin> clazz, boolean init, boolean initConfig) throws PluginInstantiationException {
         eu.suro.api.plugin.PluginDependency[] pluginDependencies = clazz.getAnnotationsByType(eu.suro.api.plugin.PluginDependency.class);
         List<Plugin> deps = new ArrayList<>();
+
         for(eu.suro.api.plugin.PluginDependency pluginDependency : pluginDependencies)
         {
             Optional<Plugin> dependecy = Stream.concat(pluginManager.getPlugins().stream(),
@@ -188,11 +193,12 @@ public class ExternalPluginManager {
         {
             throw new PluginInstantiationException(ex);
         }
-
+        System.out.println("LOAD plugin " + clazz.getName());
         try {
             Injector parent = HyNeoApi.getInjector();
             if(deps.size() > 1)
             {
+                System.out.println("Loaded plugin " + plugin.getClass().getName());
                 List<Module> modules = new ArrayList<>(deps.size());
                 for (Plugin p : deps)
                 {
@@ -207,9 +213,10 @@ public class ExternalPluginManager {
                 parent = parent.createChildInjector(modules);
             }else if(!deps.isEmpty())
             {
+                System.out.println("Loaded plugin2 " + plugin.getClass().getName());
                 parent = deps.get(0).getInjector();
             }
-
+            System.out.println("Loaded plugin3 " + plugin.getClass().getName());
             Module pluginModule = (Binder binder) ->
             {
                 binder.bind(clazz).toInstance(plugin);
@@ -219,18 +226,18 @@ public class ExternalPluginManager {
             pluginInjector.injectMembers(plugin);
             plugin.injector = pluginInjector;
 
-            if(initConfig)
-            {
-                for (Key<?>key : pluginInjector.getBindings().keySet())
-                {
-                    Class<?> type = key.getTypeLiteral().getRawType();
-                    if(Config.class.isAssignableFrom(type))
-                    {
-                        Config config = (Config) pluginInjector.getInstance(key);
-                        config.save();
-                    }
-                }
-            }
+//            if(initConfig)
+//            {
+//                for (Key<?>key : pluginInjector.getBindings().keySet())
+//                {
+//                    Class<?> type = key.getTypeLiteral().getRawType();
+//                    if(Config.class.isAssignableFrom(type))
+//                    {
+//                        Config config = (Config) pluginInjector.getInstance(key);
+//                        config.save();
+//                    }
+//                }
+//            }
 
             if(init)
             {
@@ -238,6 +245,7 @@ public class ExternalPluginManager {
 //                    pluginManager.
 //                }
             }
+
             pluginManager.add(plugin);
         }
         catch (CreationException ex)
@@ -246,6 +254,7 @@ public class ExternalPluginManager {
         }
         catch (NoClassDefFoundError | NoSuchFieldError | NoSuchMethodError ex)
         {
+            System.out.println("Failed to load plugin " + plugin.getClass().getName());
             //log error
             return null;
         }

@@ -1,37 +1,32 @@
 package eu.suro.auth;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.inject.Inject;
+import com.google.inject.Provides;
+import eu.suro.api.config.ConfigManager;
 import eu.suro.api.path.Path;
 import eu.suro.api.plugin.Plugin;
 import eu.suro.api.plugin.PluginDescriptor;
 import eu.suro.auth.commands.RegisterCommand;
 
-import eu.suro.auth.events.JoinListener;
-import eu.suro.auth.user.User;
-import net.md_5.bungee.api.connection.PendingConnection;
-import org.jetbrains.annotations.Nullable;
+//import eu.suro.auth.events.JoinListener;
+//import eu.suro.auth.events.JoinListener;
 import org.pf4j.Extension;
-import server.AuthGrpc;
-import server.AuthOuterClass;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
-
-import static eu.suro.bungee.ProxyMain.getChannel;
 
 @Extension
 @PluginDescriptor(
         name = "Auth",
         description = "Authentication plugin for BungeeCord"
 )
-public class AuthMain extends Plugin {
+public class MainAuth extends Plugin {
 
     @Inject
     private Path path;
-    static AuthMain instance;
+    static MainAuth instance;
+
+    @Inject
+    private AuthConfig authConfig;
 //    private Auth auth;
 //    public LoadingCache<PendingConnection, User> users = CacheBuilder
 //            .newBuilder()
@@ -64,25 +59,33 @@ public class AuthMain extends Plugin {
 //        return user1;
 //    }
 
+    @Provides
+    AuthConfig provideConfig(ConfigManager configManager)
+    {
+        return configManager.getConfig(AuthConfig.class);
+    }
     @Override
     protected void init() throws Exception {
         if(path.isProxy()){
-            getConfig().set("auths", Arrays.asList("AUTH-1", "AUTH-2"));
-            getConfig().set("lobby", Arrays.asList("LOBBY-1", "LOBBY-2"));
-            getConfig().save();
-
-            path.RegisterCommand(RegisterCommand.class);
-            path.RegisterListener(new JoinListener(this));
+            authConfig.setIfNotExist("auths", Arrays.asList("AUTH-1", "AUTH-2"));
+            authConfig.setIfNotExist("lobby", Arrays.asList("LOBBY-1", "LOBBY-2"));
+            authConfig.save();
+//            path.RegisterCommand(RegisterCommand.class);
+//            path.RegisterListener(new JoinListener(this));
         }
     }
 
+
+    public AuthConfig getAuthConfig() {
+        return authConfig;
+    }
 
     @Override
     public void stop() {
 
     }
 
-    public static AuthMain getInstance() {
+    public static MainAuth getInstance() {
         return instance;
     }
 

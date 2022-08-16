@@ -3,6 +3,7 @@ package eu.suro.api;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import eu.suro.api.config.ConfigManager;
 import eu.suro.api.path.Path;
 import eu.suro.api.plugin.PluginManager;
 
@@ -18,6 +19,7 @@ public class HyneoModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(ConfigManager.class);
         bind(PluginManager.class);
         bind(Path.class).toInstance(path);
     }

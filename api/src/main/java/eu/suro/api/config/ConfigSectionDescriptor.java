@@ -22,10 +22,6 @@ public class ConfigSectionDescriptor implements ConfigObject{
         return section.name();
     }
 
-    @Override
-    public int position() {
-        return section.position();
-    }
 
     public ConfigSection getSection() {
         return section;

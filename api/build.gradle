@@ -40,7 +40,6 @@ repositories {
     mavenCentral()
     maven { url "https://repo.panda-lang.org/releases" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // This lets gradle find the BungeeCord files online
-
 }
 
 
@@ -56,7 +55,7 @@ dependencies {
     implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
     implementation group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
-    implementation group: 'com.electronwill.night-config', name: 'yaml', version: '3.6.5'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
 }
 
 

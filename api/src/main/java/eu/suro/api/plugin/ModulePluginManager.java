@@ -133,6 +133,12 @@ public class ModulePluginManager extends DefaultPluginManager {
         }
     }
 
+//    @Override
+//    protected PluginLoader createPluginLoader() {
+//        return new CompoundPluginLoader()
+//                .add(new )
+//    }
+
     @Override
     public RuntimeMode getRuntimeMode() {
         return RuntimeMode.DEPLOYMENT;
