@@ -64,6 +64,7 @@ public class MainAuth extends Plugin {
     {
         return configManager.getConfig(AuthConfig.class);
     }
+
     @Override
     protected void init() throws Exception {
         if(path.isProxy()){
@@ -74,7 +75,6 @@ public class MainAuth extends Plugin {
 //            path.RegisterListener(new JoinListener(this));
         }
     }
-
 
     public AuthConfig getAuthConfig() {
         return authConfig;

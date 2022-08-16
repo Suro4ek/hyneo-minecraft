@@ -1,6 +1,6 @@
 package eu.suro.bungee;
 
-import com.electronwill.nightconfig.core.file.FileConfig;
+import com.google.inject.Injector;
 import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
 import eu.suro.api.HyNeoApi;
 import eu.suro.api.path.Path;
@@ -11,6 +11,7 @@ import io.grpc.InsecureChannelCredentials;
 import io.grpc.ManagedChannel;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,11 @@ public class ProxyMain extends Plugin {
     static ProxyMain instance;
 
     static ManagedChannel channel;
-    static FileConfig config;
 
     private HyNeoApi hyNeoApi;
+
+    @Inject
+    private BungeeConfig bungeeConfig;
 
     @Override
     public void onEnable() {
@@ -34,10 +37,12 @@ public class ProxyMain extends Plugin {
             file.mkdirs();
         }
         Path path = new PathImpl();
-        loadConfig();
 //        startGRPCClient();
         //load modules
         hyNeoApi = new HyNeoApi(path);
+        Injector injector = HyNeoApi.getInjector().createChildInjector(new BungeeModule());
+        injector.injectMembers(ProxyMain.instance);
+        loadConfig();
         //register commands
         LiteBungeeFactory.builder(this)
                 .command(commands.toArray(new Class<?>[0]))
@@ -45,12 +50,9 @@ public class ProxyMain extends Plugin {
     }
 
     public void loadConfig(){
-        if(!config.getFile().exists()) {
-            config.set("grpc.host", "localhost");
-            config.set("grpc.port", "50051");
-            config.save();
-        }
-        config.load();
+        bungeeConfig.setIfNotExist("grpc.host", "localhost");
+        bungeeConfig.setIfNotExist("grpc.port", "50051");
+        bungeeConfig.save();
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ProxyMain extends Plugin {
 
     public void startGRPCClient(){
         ChannelCredentials credentials = InsecureChannelCredentials.create();
-        channel = Grpc.newChannelBuilder(config.get("grpc.host")+":"+config.get("grpc.port"),
+        channel = Grpc.newChannelBuilder(bungeeConfig.grpcHost()+":"+bungeeConfig.grpcPort(),
                         credentials)
                 .build();
     }
