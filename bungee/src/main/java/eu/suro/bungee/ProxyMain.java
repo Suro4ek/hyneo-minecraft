@@ -55,6 +55,7 @@ public class ProxyMain extends Plugin {
 
     @Override
     public void onDisable() {
+
     }
 
     public static ManagedChannel getChannel() {

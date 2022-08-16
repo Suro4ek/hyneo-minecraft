@@ -7,10 +7,17 @@ buildscript {
         // https://mvnrepository.com/artifact/io.grpc/grpc-bom
         grpcVersion = '1.47.0-SNAPSHOT'
     }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.21.0'
+    }
 }
 
 plugins {
     id "com.google.protobuf" version "${protobufPluginVersion}"
+    id "com.vanniktech.maven.publish" version "0.21.0"
 }
 
 protobuf {
