@@ -46,7 +46,10 @@ public class ConfigManager {
             throw new IllegalArgumentException("Class must be public");
         }
 
-        T t = (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, new ConfigInvocationHandler(this,  new File(path.getDataFolder(), "configs/"+generateNameModule(clazz) + ".yml")));
+        T t = (T) Proxy.newProxyInstance(clazz.getClassLoader(),
+                new Class[]{clazz},
+                new ConfigInvocationHandler(this,
+                        new File(path.getDataFolder(), "configs/"+generateNameModule(clazz) + ".yml")));
         return t;
     }
 
