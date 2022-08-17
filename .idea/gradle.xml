@@ -11,8 +11,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/api" />
             <option value="$PROJECT_DIR$/bungee" />
-            <option value="$PROJECT_DIR$/plugins" />
-            <option value="$PROJECT_DIR$/plugins/auth" />
           </set>
         </option>
       </GradleProjectSettings>

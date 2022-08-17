@@ -8,10 +8,19 @@ repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // This lets gradle find the BungeeCord files online
     maven { url "https://repo.panda-lang.org/releases" }
+
+    maven {
+        url 'https://registry.hyneo.ru/repository/maven-releases/'
+
+        credentials {
+            username = 'admin'
+            password = 'lq6greMyJaxF'
+        }
+    }
 }
 
 dependencies {
-    implementation project(path: ':api', configuration: 'shadow')
+    implementation 'hyneo-minecraft:api:1.0.4'
     implementation 'dev.rollczi.litecommands:bungee:2.4.2'
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'

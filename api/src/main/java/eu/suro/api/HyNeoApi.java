@@ -28,10 +28,8 @@ public class HyNeoApi {
 
     }
 
-    public HyNeoApi(Path path){
-        injector = Guice.createInjector(
-            new HyneoModule(path)
-        );
+    public HyNeoApi(Path path, Injector injector1){
+        injector = injector1;
         injector.getInstance(HyNeoApi.class).start(path);
     }
 

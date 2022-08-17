@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Singleton
 public class PluginManager {
 
-    private static final String PLUGIN_PACKAGER = "eu.suro.plugins";
     private final List<Plugin> plugins = new CopyOnWriteArrayList<>();
     private final List<Plugin> activePlugins = new CopyOnWriteArrayList<>();
 
@@ -102,8 +101,6 @@ public class PluginManager {
     {
         List<Plugin> scannedPlugins = new ArrayList<>(plugins);
         int loaded = 0;
-        System.out.println("Loading plugins...");
-        System.out.println("Found " + scannedPlugins.size() + " plugins");
         for (Plugin plugin : scannedPlugins)
         {
             try {
@@ -114,7 +111,6 @@ public class PluginManager {
             }
             loaded++;
         }
-        System.out.println("Loaded " + loaded + " plugins");
     }
 
 

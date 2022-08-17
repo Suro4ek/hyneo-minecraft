@@ -1,8 +1,10 @@
 package eu.suro.bungee;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
 import eu.suro.api.HyNeoApi;
+import eu.suro.api.HyneoModule;
 import eu.suro.api.path.Path;
 import eu.suro.bungee.path.PathImpl;
 import io.grpc.ChannelCredentials;
@@ -39,9 +41,8 @@ public class ProxyMain extends Plugin {
         Path path = new PathImpl();
 //        startGRPCClient();
         //load modules
-        hyNeoApi = new HyNeoApi(path);
-        Injector injector = HyNeoApi.getInjector().createChildInjector(new BungeeModule());
-        injector.injectMembers(ProxyMain.instance);
+        hyNeoApi = new HyNeoApi(path, Guice.createInjector(new HyneoModule(path), new BungeeModule()));
+        HyNeoApi.getInjector().injectMembers(ProxyMain.instance);
         loadConfig();
         //register commands
         LiteBungeeFactory.builder(this)
