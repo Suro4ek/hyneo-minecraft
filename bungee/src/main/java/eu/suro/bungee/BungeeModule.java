@@ -9,8 +9,8 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class BungeeModule extends AbstractModule {
 
     @Provides
-    ProxyServer getProxy(){
-        return ProxyMain.getInstance().getProxy();
+    Plugin getPlugin(){
+        return ProxyMain.getInstance();
     }
 
     @Provides
