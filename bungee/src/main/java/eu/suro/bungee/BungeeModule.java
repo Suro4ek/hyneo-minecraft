@@ -6,6 +6,8 @@ import eu.suro.api.config.ConfigManager;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import java.util.logging.Logger;
+
 public class BungeeModule extends AbstractModule {
 
     @Provides
@@ -16,5 +18,9 @@ public class BungeeModule extends AbstractModule {
     @Provides
     BungeeConfig getBungeeConfig(ConfigManager configManager){
         return configManager.getConfig(BungeeConfig.class);
+    }
+    @Provides
+    Logger getLogger(){
+        return ProxyServer.getInstance().getLogger();
     }
 }

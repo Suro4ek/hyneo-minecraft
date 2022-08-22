@@ -9,10 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface ConfigSection {
 
-    String name();
-
     String description();
-
 
     boolean closeByDefault() default false;
 
