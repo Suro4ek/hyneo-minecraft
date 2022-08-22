@@ -11,10 +11,7 @@ public @interface PluginDescriptor {
 
     String description() default "";
 
-    String configName() default "";
-
     String[] conflicts() default {};
 
     boolean enabledByDefault() default true;
-
 }

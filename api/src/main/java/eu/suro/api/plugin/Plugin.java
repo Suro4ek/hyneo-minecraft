@@ -10,19 +10,11 @@ public class Plugin implements Module, ExtensionPoint {
     protected Injector injector;
 
     @Override
-    public void configure(Binder binder) {
+    public void configure(Binder binder) {}
 
-    }
+    protected void init() throws Exception {}
 
-    protected void init() throws Exception
-    {
-
-    }
-
-    protected void stop() throws Exception
-    {
-
-    }
+    protected void stop() throws Exception {}
 
     public Injector getInjector() {
         return injector;

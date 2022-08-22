@@ -28,13 +28,11 @@ public class HyneoModule extends AbstractModule {
     ExecutorService provideExecutorService()
     {
         int poolSize = 2 * Runtime.getRuntime().availableProcessors();
-
         ThreadPoolExecutor executor = new ThreadPoolExecutor(poolSize, poolSize,
                 60L, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(),
                 new ThreadFactoryBuilder().setNameFormat("worker-%d").build());
         executor.allowCoreThreadTimeOut(true);
-
         return executor;
     }
 }

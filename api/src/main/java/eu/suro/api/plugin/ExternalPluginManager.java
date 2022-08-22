@@ -7,8 +7,6 @@ import com.google.common.graph.MutableGraph;
 import com.google.inject.*;
 import com.google.inject.Module;
 import eu.suro.api.HyNeoApi;
-import eu.suro.api.config.Config;
-import org.pf4j.PluginDependency;
 import org.pf4j.PluginManager;
 import org.pf4j.PluginRuntimeException;
 import org.pf4j.PluginWrapper;
@@ -20,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
 
 @Singleton

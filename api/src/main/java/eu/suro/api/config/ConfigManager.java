@@ -1,22 +1,12 @@
 package eu.suro.api.config;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.ComparisonChain;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import eu.suro.api.path.Path;
-import eu.suro.api.plugin.Plugin;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.*;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 @Singleton
 public class ConfigManager {
@@ -37,7 +27,6 @@ public class ConfigManager {
             return  profile + "." + key;
         }
     }
-
 
     public <T extends Config> T getConfig(Class<T> clazz)
     {

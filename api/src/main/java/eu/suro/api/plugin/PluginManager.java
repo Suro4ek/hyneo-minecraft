@@ -1,6 +1,5 @@
 package eu.suro.api.plugin;
 
-import com.google.common.base.Strings;
 import com.google.common.graph.Graph;
 import com.google.inject.*;
 import com.google.inject.Module;
@@ -164,13 +163,6 @@ public class PluginManager {
             throw new PluginInstantiationException(ex);
         }
         return true;
-    }
-
-    public boolean isPluginEnabled(Plugin plugin)
-    {
-        final PluginDescriptor pluginDescriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
-        final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName() : pluginDescriptor.configName();
-        return pluginDescriptor.enabledByDefault();
     }
 
     public List<Plugin> conflictsForPlugin(Plugin plugin)

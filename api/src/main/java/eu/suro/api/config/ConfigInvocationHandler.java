@@ -1,7 +1,5 @@
 package eu.suro.api.config;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 import eu.suro.api.util.ReflectUtil;
 import org.apache.commons.io.FileUtils;
 import org.yaml.snakeyaml.DumperOptions;
@@ -20,8 +18,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConfigInvocationHandler implements InvocationHandler {
-
-    private static final Object NULL = new Object();
 
     private final ConfigManager manager;
     protected static DumperOptions yamlOptions = new DumperOptions() {{
@@ -55,18 +51,13 @@ public class ConfigInvocationHandler implements InvocationHandler {
 
     private void loadFromString(String data) {
         StringBuilder dataBuild = new StringBuilder();
-        StringBuilder descBuild = new StringBuilder();
         for (String line : data.split("\n")) {
             if (!line.isEmpty()) {
-                if (line.charAt(0) == '#') {
-                    descBuild.append(line.substring(1)).append("\n");
-                } else {
-                    dataBuild.append(line).append("\n");
-                }
+                dataBuild.append(line).append("\n");
             }
         }
 
-        this.map = (Map<String, Object>) yaml.load(dataBuild.toString());
+        this.map = yaml.load(dataBuild.toString());
         if (map == null)
             map = new LinkedHashMap<>();
     }
@@ -79,7 +70,7 @@ public class ConfigInvocationHandler implements InvocationHandler {
             return iface.getSimpleName();
         }
 
-        if("hasCode".equals(method.getName()) && args == null)
+        if("hashCode".equals(method.getName()) && args == null)
         {
             return System.identityHashCode(proxy);
         }
@@ -89,29 +80,11 @@ public class ConfigInvocationHandler implements InvocationHandler {
             return proxy == args[0];
         }
 
-        if("save".equals(method.getName()) && args == null)
-        {
-            save();
-            return void.class;
-        }
-
-        if("setAndSave".equals(method.getName()) && args != null && args.length == 2 && args[0] instanceof String && args[1] instanceof Object)
-        {
-            setAndSave((String) args[0], args[1]);
-            return void.class;
-        }
-
         if("setIfNotExist".equals(method.getName()) && args != null && args.length == 2 && args[0] instanceof String && args[1] instanceof Object)
         {
             setIfNotExist((String) args[0], args[1]);
             return void.class;
         }
-
-        if("getOrSet".equals(method.getName()) && args != null && args.length == 2 && args[0] instanceof String && args[1] instanceof Object)
-        {
-            return getOrSet((String) args[0], args[1]);
-        }
-
 
         ConfigGroup group = iface.getAnnotation(ConfigGroup.class);
         ConfigItem item = method.getAnnotation(ConfigItem.class);
@@ -181,15 +154,6 @@ public class ConfigInvocationHandler implements InvocationHandler {
                 .invokeWithArguments(args);
     }
 
-    public <T> T getOrSet(String path, T def) {
-        if (!this.contains(path)) {
-            this.setAndSave(path, def);
-            return def;
-        } else {
-            return (T) this.get(path);
-        }
-    }
-
     public void set(String path, Object o) {
         Map<String, Object> current = this.map;
         String[] data = path.split("\\.");
@@ -234,7 +198,6 @@ public class ConfigInvocationHandler implements InvocationHandler {
     public String saveToString() {
         return yaml.dumpAs(this.map, null, DumperOptions.FlowStyle.BLOCK);
     }
-
 
     public boolean contains(String path) {
         try {
@@ -285,7 +248,6 @@ public class ConfigInvocationHandler implements InvocationHandler {
         if (type instanceof ParameterizedType)
         {
             ParameterizedType parameterizedType = (ParameterizedType) type;
-
             System.out.println(parameterizedType.getRawType());
         }
         if(type == List.class)
@@ -300,7 +262,6 @@ public class ConfigInvocationHandler implements InvocationHandler {
 
         return str;
     }
-
 
     public List<String> getStringList(String path) {
         final List<Object> list = this.getList(path);

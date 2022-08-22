@@ -39,7 +39,7 @@ public class ProxyMain extends Plugin {
             file.mkdirs();
         }
         Path path = new PathImpl();
-//        startGRPCClient();
+        startGRPCClient();
         //load modules
         hyNeoApi = new HyNeoApi(path, Guice.createInjector(new HyneoModule(path), new BungeeModule()));
         HyNeoApi.getInjector().injectMembers(ProxyMain.instance);
@@ -53,7 +53,6 @@ public class ProxyMain extends Plugin {
     public void loadConfig(){
         bungeeConfig.setIfNotExist("grpc.host", "localhost");
         bungeeConfig.setIfNotExist("grpc.port", "50051");
-        bungeeConfig.save();
     }
 
     @Override
