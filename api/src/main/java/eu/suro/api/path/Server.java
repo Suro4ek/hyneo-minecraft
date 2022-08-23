@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public interface Server<P> {
+public interface Server {
 
     File getDataFolder();
 
@@ -19,5 +19,7 @@ public interface Server<P> {
 
     void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time);
 
-    P getPlayer(String name);
+    <T> T getPlayer(String name);
+
+    <T>  Map<String, T> getServers();
 }

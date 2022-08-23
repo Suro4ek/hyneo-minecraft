@@ -5,8 +5,9 @@ import com.google.inject.Injector;
 import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
 import eu.suro.api.HyNeoApi;
 import eu.suro.api.HyneoModule;
-import eu.suro.api.path.Path;
-import eu.suro.bungee.path.PathImpl;
+import eu.suro.api.path.Bungee;
+import eu.suro.api.path.Server;
+import eu.suro.bungee.path.ServerImpl;
 import io.grpc.ChannelCredentials;
 import io.grpc.Grpc;
 import io.grpc.InsecureChannelCredentials;
@@ -38,8 +39,8 @@ public class ProxyMain extends Plugin {
         if (!file.exists()) {
             file.mkdirs();
         }
-        Path path = new PathImpl();
-        Injector injector =  Guice.createInjector(new HyneoModule(path), new BungeeModule());
+        Server path = new ServerImpl();
+        Injector injector =  Guice.createInjector(new HyneoModule(path, (Bungee) null), new BungeeModule());
         injector.injectMembers(ProxyMain.instance);
         loadConfig();
         startGRPCClient();

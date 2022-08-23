@@ -46,6 +46,14 @@ public class Plugin implements Module, ExtensionPoint {
         path.executeAsync(runnable);
     }
 
+    public <T> Map<String, T> getServers(){
+        return path.getServers();
+    }
+
+    public <T> T getPlayer(String username){
+        return path.getPlayer(username);
+    }
+
     public void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time){
         path.executeAsyncAfter(runnable, timeUnit, time);
     }
