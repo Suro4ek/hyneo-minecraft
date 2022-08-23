@@ -3,7 +3,7 @@ package eu.suro.api;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import eu.suro.api.config.ConfigManager;
-import eu.suro.api.path.Path;
+import eu.suro.api.path.Server;
 import eu.suro.api.plugin.ExternalPluginManager;
 import eu.suro.api.plugin.PluginManager;
 
@@ -24,12 +24,12 @@ public class HyNeoApi {
 
     }
 
-    public HyNeoApi(Path path, Injector injector1){
+    public HyNeoApi(Server path, Injector injector1){
         injector = injector1;
         injector.getInstance(HyNeoApi.class).start(path);
     }
 
-    public void start(Path path){
+    public void start(Server path){
         externalPluginManager.setupInstance(Paths.get(path.getDataFolder()+"/plugins"));
         externalPluginManager.startExtrenalPluginManager();
         externalPluginManager.loadPlugins();

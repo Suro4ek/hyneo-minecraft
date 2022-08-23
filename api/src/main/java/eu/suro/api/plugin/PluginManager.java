@@ -15,12 +15,10 @@ public class PluginManager {
 
     private final List<Plugin> plugins = new CopyOnWriteArrayList<>();
     private final List<Plugin> activePlugins = new CopyOnWriteArrayList<>();
-
     @Inject
     PluginManager(){
 
     }
-
 
     public Config getPluginConfigProxy(Plugin plugin)
     {

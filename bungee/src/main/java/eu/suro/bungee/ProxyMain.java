@@ -39,11 +39,12 @@ public class ProxyMain extends Plugin {
             file.mkdirs();
         }
         Path path = new PathImpl();
+        Injector injector =  Guice.createInjector(new HyneoModule(path), new BungeeModule());
+        injector.injectMembers(ProxyMain.instance);
+        loadConfig();
         startGRPCClient();
         //load modules
-        hyNeoApi = new HyNeoApi(path, Guice.createInjector(new HyneoModule(path), new BungeeModule()));
-        HyNeoApi.getInjector().injectMembers(ProxyMain.instance);
-        loadConfig();
+        hyNeoApi = new HyNeoApi(path, injector);
         //register commands
         LiteBungeeFactory.builder(this)
                 .command(commands.toArray(new Class<?>[0]))

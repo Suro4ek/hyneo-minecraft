@@ -2,7 +2,7 @@ package eu.suro.api.config;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import eu.suro.api.path.Path;
+import eu.suro.api.path.Server;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -11,7 +11,7 @@ import java.lang.reflect.*;
 @Singleton
 public class ConfigManager {
     @Inject
-    Path path;
+    Server path;
 
     @Inject
     public ConfigManager(){

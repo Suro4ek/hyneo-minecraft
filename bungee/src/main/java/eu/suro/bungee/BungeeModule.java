@@ -23,11 +23,6 @@ public class BungeeModule extends AbstractModule {
     }
 
     @Provides
-    Logger getLogger(){
-        return ProxyServer.getInstance().getLogger();
-    }
-
-    @Provides
     ManagedChannel getManagedChannel(){
         return ProxyMain.getChannel();
     }

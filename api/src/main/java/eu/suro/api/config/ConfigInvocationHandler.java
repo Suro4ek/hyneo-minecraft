@@ -107,7 +107,7 @@ public class ConfigInvocationHandler implements InvocationHandler {
             if(contains(ConfigManager.getWholeKey(null, item.keyName())))
             {
                 try {
-                    Object objectValue = stringToObject(ConfigManager.getWholeKey(null, item.keyName()), method.getReturnType());
+                    Object objectValue = stringToObject(getString(ConfigManager.getWholeKey(null, item.keyName())), method.getReturnType());
                     return objectValue;
                 }catch (Exception e)
                 {
