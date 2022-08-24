@@ -5,7 +5,6 @@ import com.google.inject.Injector;
 import dev.rollczi.litecommands.bungee.LiteBungeeFactory;
 import eu.suro.api.HyNeoApi;
 import eu.suro.api.HyneoModule;
-import eu.suro.api.path.Bungee;
 import eu.suro.api.path.Server;
 import eu.suro.bungee.path.ServerImpl;
 import io.grpc.ChannelCredentials;
@@ -40,9 +39,8 @@ public class ProxyMain extends Plugin {
             file.mkdirs();
         }
         Server path = new ServerImpl();
-        Injector injector =  Guice.createInjector(new HyneoModule(path, (Bungee) null), new BungeeModule());
+        Injector injector =  Guice.createInjector(new HyneoModule(path), new BungeeModule());
         injector.injectMembers(ProxyMain.instance);
-        loadConfig();
         startGRPCClient();
         //load modules
         hyNeoApi = new HyNeoApi(path, injector);
@@ -50,11 +48,6 @@ public class ProxyMain extends Plugin {
         LiteBungeeFactory.builder(this)
                 .command(commands.toArray(new Class<?>[0]))
                 .register();
-    }
-
-    public void loadConfig(){
-        bungeeConfig.setIfNotExist("grpc.host", "localhost");
-        bungeeConfig.setIfNotExist("grpc.port", "50051");
     }
 
     @Override

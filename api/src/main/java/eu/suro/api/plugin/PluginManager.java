@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 public class PluginManager {
 
     private final List<Plugin> plugins = new CopyOnWriteArrayList<>();
+
     private final List<Plugin> activePlugins = new CopyOnWriteArrayList<>();
+
     @Inject
     PluginManager(){
 
@@ -100,9 +102,14 @@ public class PluginManager {
         int loaded = 0;
         for (Plugin plugin : scannedPlugins)
         {
+            if(activePlugins.contains(plugin))
+            {
+                continue;
+            }
             try {
                 startPlugin(plugin);
             }catch (PluginInstantiationException ex){
+                ex.printStackTrace();
                 //log error
                 plugins.remove(plugin);
             }
@@ -196,6 +203,14 @@ public class PluginManager {
                     return false;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public Optional<Plugin> get(Class<? extends Plugin> type)
+    {
+        return plugins.stream()
+                .filter(type::isInstance)
+                .filter(p -> p.getClass().getAnnotation(PluginDescriptor.class).name().equals(type.getAnnotation(PluginDescriptor.class).name()))
+                .findFirst();
     }
 
     public void add(Plugin plugin)

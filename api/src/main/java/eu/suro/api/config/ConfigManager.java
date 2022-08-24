@@ -43,7 +43,6 @@ public class ConfigManager {
     }
 
 
-
     public static String generateNameModule(Class classModule) {
         String name = classModule.getSimpleName();
         if (StringUtils.startsWithIgnoreCase(name, "Main")) {

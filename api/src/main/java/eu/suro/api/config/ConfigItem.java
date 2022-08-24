@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 public @interface ConfigItem {
     String keyName();
     String description();
-
+    String value();
     Class <? extends Enum> enumClass() default Enum.class;
 }

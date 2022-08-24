@@ -114,9 +114,10 @@ public class ConfigInvocationHandler implements InvocationHandler {
                     System.out.println(e);
                     return null;
                 }
-            }
-            else
-            {
+            } else if(item.value() != null){
+                setIfNotExist(ConfigManager.getWholeKey(null, item.keyName()), item.value());
+                return item.value();
+            }else {
                 if (method.isDefault())
                 {
                     Object defaultValue = callDefaultMethod(proxy, method, null);

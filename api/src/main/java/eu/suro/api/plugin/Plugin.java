@@ -4,8 +4,6 @@ import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import eu.suro.api.path.Bukkit;
-import eu.suro.api.path.Bungee;
 import eu.suro.api.path.Server;
 import org.pf4j.ExtensionPoint;
 
@@ -19,11 +17,6 @@ public class Plugin implements Module, ExtensionPoint {
     @Inject
     private Server path;
 
-    @Inject
-    private Bungee bungee;
-
-    @Inject
-    private Bukkit bukkit;
     @Override
     public void configure(Binder binder) {}
 
@@ -54,8 +47,16 @@ public class Plugin implements Module, ExtensionPoint {
         return path.getPlayer(username);
     }
 
+    public void callEvent(Object event){
+        path.callEvent(event);
+    }
+
     public void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time){
         path.executeAsyncAfter(runnable, timeUnit, time);
+    }
+
+    public void executeAsyncTimer(Runnable runnable, TimeUnit timeUnit, int time, int time2){
+        path.executeAsyncTimer(runnable, timeUnit, time, time2);
     }
 
     public String getName()

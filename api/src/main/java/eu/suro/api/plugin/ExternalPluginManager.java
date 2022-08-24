@@ -62,7 +62,7 @@ public class ExternalPluginManager {
             checkDepsAndStart(startedPlugins, scannedPlugins, plugin);
         }
 
-        scanAndInstantiate(scannedPlugins, false, false);
+        scanAndInstantiate(scannedPlugins, true, false);
     }
 
     private void scanAndInstantiate(List<Plugin> plugins, boolean init, boolean initConfig)
@@ -162,11 +162,12 @@ public class ExternalPluginManager {
 
         for(eu.suro.api.plugin.PluginDependency pluginDependency : pluginDependencies)
         {
-            Optional<Plugin> dependecy = Stream.concat(pluginManager.getPlugins().stream(),
-                    scannedPlugins.stream().filter(p -> p.getClass() == pluginDependency.value())).findFirst();
+//            Optional<Plugin> dependecy = Stream.concat(pluginManager.getPlugins().stream(),
+//                    scannedPlugins.stream().filter(p -> p.getClass() == pluginDependency.value())).findFirst();
+            Optional<Plugin> dependecy = pluginManager.getPlugins().stream().filter(p -> p.getClass() == pluginDependency.value()).findFirst();
             if(!dependecy.isPresent())
             {
-                throw  new PluginRuntimeException(
+                throw new PluginRuntimeException(
                         "Plugin " + clazz.getName() + " depends on " + pluginDependency.value().getName() + " but it is not loaded");
             }
             deps.add(dependecy.get());
@@ -187,7 +188,7 @@ public class ExternalPluginManager {
         }
         try {
             Injector parent = HyNeoApi.getInjector();
-            if(deps.size() > 1)
+            if(deps.size() >= 1)
             {
                 List<Module> modules = new ArrayList<>(deps.size());
                 for (Plugin p : deps)
@@ -201,9 +202,6 @@ public class ExternalPluginManager {
                 }
 
                 parent = parent.createChildInjector(modules);
-            }else if(!deps.isEmpty())
-            {
-                parent = deps.get(0).getInjector();
             }
             Module pluginModule = (Binder binder) ->
             {
@@ -213,26 +211,6 @@ public class ExternalPluginManager {
             Injector pluginInjector = parent.createChildInjector(pluginModule);
             pluginInjector.injectMembers(plugin);
             plugin.injector = pluginInjector;
-
-//            if(initConfig)
-//            {
-//                for (Key<?>key : pluginInjector.getBindings().keySet())
-//                {
-//                    Class<?> type = key.getTypeLiteral().getRawType();
-//                    if(Config.class.isAssignableFrom(type))
-//                    {
-//                        Config config = (Config) pluginInjector.getInstance(key);
-//                        config.save();
-//                    }
-//                }
-//            }
-
-            if(init)
-            {
-//                try {
-//                    pluginManager.
-//                }
-            }
 
             pluginManager.add(plugin);
         }

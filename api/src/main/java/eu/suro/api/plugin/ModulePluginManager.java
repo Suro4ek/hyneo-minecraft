@@ -21,7 +21,6 @@ public class ModulePluginManager extends DefaultPluginManager {
         super(path);
     }
 
-
     @Override
     public void loadPlugins() {
         for(Path path : pluginsRoots) {
@@ -304,10 +303,5 @@ public class ModulePluginManager extends DefaultPluginManager {
     {
         unloadPlugin(pluginId);
         disabledPlugins.add(pluginId);
-    }
-
-    private boolean isPluginEligibleForLoading(Path path)
-    {
-        return path.toFile().getName().endsWith(".jar");
     }
 }

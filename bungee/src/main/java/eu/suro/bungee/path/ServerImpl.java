@@ -2,6 +2,7 @@ package eu.suro.bungee.path;
 
 import eu.suro.api.path.Server;
 import eu.suro.bungee.ProxyMain;
+import net.md_5.bungee.api.plugin.Event;
 import net.md_5.bungee.api.plugin.Listener;
 
 import java.io.File;
@@ -44,6 +45,13 @@ public class ServerImpl implements Server {
     }
 
     @Override
+    public void executeAsyncTimer(Runnable runnable, TimeUnit timeUnit, int i, int i1) {
+        ProxyMain.getInstance().getProxy().getScheduler().schedule(
+                ProxyMain.getInstance(), runnable, i, i1, timeUnit
+        );
+    }
+
+    @Override
     public void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int i) {
         ProxyMain.getInstance().getProxy().getScheduler().schedule(
                 ProxyMain.getInstance(), runnable, i, timeUnit
@@ -53,6 +61,11 @@ public class ServerImpl implements Server {
     @Override
     public <T> T getPlayer(String s) {
         return (T) ProxyMain.getInstance().getProxy().getPlayer(s);
+    }
+
+    @Override
+    public void callEvent(Object o) {
+        ProxyMain.getInstance().getProxy().getPluginManager().callEvent((Event) o);
     }
 
     @Override

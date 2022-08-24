@@ -17,9 +17,13 @@ public interface Server {
 
     void executeAsync(Runnable runnable);
 
+    void executeAsyncTimer(Runnable runnable, TimeUnit timeUnit, int time, int time2);
+
     void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time);
+
+    <T>  Map<String, T> getServers();
 
     <T> T getPlayer(String name);
 
-    <T>  Map<String, T> getServers();
+    void callEvent(Object event);
 }
