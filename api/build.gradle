@@ -3,8 +3,6 @@
 но если блять автор не обновит базу данных и придется переписывать весь код,
 то он пидарас
 */
-import static fr.il_totore.manadrop.MinecraftDependencyHelper.*;
-import static fr.il_totore.manadrop.MinecraftRepositoryHelper.*;
 
 buildscript {
     ext {
@@ -19,8 +17,9 @@ buildscript {
 plugins {
     id "com.google.protobuf" version "${protobufPluginVersion}"
     id 'maven-publish'
-    id 'fr.il_totore.manadrop' version '0.4-SNAPSHOT'
+    id 'kr.entree.spigradle' version '2.4.2'
 }
+
 
 version = "1.0.19"
 
@@ -66,30 +65,12 @@ sourceSets {
     }
 }
 
-bungee {
-    desc {
-        named 'HyNeoApi' //Default: the project name
-        version project.version //Default: the project version
-        authors 'suro'
-        main 'eu.suro.hyneoapi.HyNeoApi' //Default: the project main class
-    }
-}
-
-
-bungeecord{
-
-}
 
 repositories {
     mavenCentral()
-    spigotSnapshot() //https://hub.spigotmc.org/nexus/content/repositories/snapshots/
-    sonatype() //https://oss.sonatype.org/content/repositories/snapshots
-    paperPublic() //https://papermc.io/repository/public
     maven { url "https://repo.panda-lang.org/releases" }
 
 //    //https://hub.spigotmc.org/nexus/#view-repositories;snapshots~browsestorage check version spigot and bukkit
-//    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
-//    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
 
 
@@ -119,9 +100,9 @@ dependencies {
 //    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
 
     //spigot 1.15.2
-    implementation spigotApi('1.15.2') //org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT
+    compileOnly spigot('1.15.2')
     //bungee 1.19
-    implementation bungeecordApi('1.19-R0.1') //https://hub.spigotmc.org/nexus/#view-repositories;public~browseindex
+    compileOnly bungeecord('1.19-R0.1-SNAPSHOT')//https://hub.spigotmc.org/nexus/#view-repositories;public~browseindex
 }
 
 
