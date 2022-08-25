@@ -12,14 +12,23 @@ buildscript {
         protobufPluginVersion = '0.8.18'
         // https://mvnrepository.com/artifact/io.grpc/grpc-bom
         grpcVersion = '1.47.0-SNAPSHOT'
+
+        spigradleVersion = '2.4.2'
     }
 }
 plugins {
     id "com.google.protobuf" version "${protobufPluginVersion}"
     id 'maven-publish'
-    id 'kr.entree.spigradle' version '2.4.2'
+    id "kr.entree.spigradle" version "${spigradleVersion}"
+    id 'kr.entree.spigradle.bungee' version "${spigradleVersion}"
 }
 
+bungee {
+    description 'A Bungeecord plugin.'
+    author 'Me'
+    depends 'foo', 'bar'
+    softDepends 'soft'
+}
 
 version = "1.0.19"
 
@@ -65,6 +74,15 @@ sourceSets {
     }
 }
 
+
+shadowJar {
+    classifier = ''
+    dependencies {
+        include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
+    }
+    relocate 'co.aikar.commands', "${packageName}.acf"
+    relocate 'co.aikar.locales', "${packageName}.locales"
+}
 
 repositories {
     mavenCentral()
