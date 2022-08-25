@@ -1,3 +1,11 @@
+/*
+блять просто помогает брать спокойно из воздуха spigot и bungee-cord,
+но если блять автор не обновит базу данных и придется переписывать весь код,
+то он пидарас
+*/
+import static fr.il_totore.manadrop.MinecraftDependencyHelper.*;
+import static fr.il_totore.manadrop.MinecraftRepositoryHelper.*;
+
 buildscript {
     ext {
         // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-bom
@@ -11,9 +19,10 @@ buildscript {
 plugins {
     id "com.google.protobuf" version "${protobufPluginVersion}"
     id 'maven-publish'
+    id 'fr.il_totore.manadrop' version '0.4-SNAPSHOT'
 }
 
-version = "1.0.18"
+version = "1.0.19"
 
 publishing {
     publications {
@@ -57,28 +66,62 @@ sourceSets {
     }
 }
 
+bungee {
+    desc {
+        named 'HyNeoApi' //Default: the project name
+        version project.version //Default: the project version
+        authors 'suro'
+        main 'eu.suro.hyneoapi.HyNeoApi' //Default: the project main class
+    }
+}
+
+
+bungeecord{
+
+}
+
 repositories {
     mavenCentral()
+    spigotSnapshot() //https://hub.spigotmc.org/nexus/content/repositories/snapshots/
+    sonatype() //https://oss.sonatype.org/content/repositories/snapshots
+    paperPublic() //https://papermc.io/repository/public
     maven { url "https://repo.panda-lang.org/releases" }
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' } // This lets gradle find the BungeeCord files online
+
+//    //https://hub.spigotmc.org/nexus/#view-repositories;snapshots~browsestorage check version spigot and bukkit
+//    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+//    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
 
 
 dependencies {
-    runtimeOnly 'io.grpc:grpc-netty-shaded:1.47.0'
-    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
+    //нужны чтобы аннотации для плагинов работали
+//    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
+    //litecommand framework
     implementation 'dev.rollczi.litecommands:core:2.4.2'
+    //grpc
     implementation 'io.grpc:grpc-protobuf:1.47.0'
     implementation 'io.grpc:grpc-stub:1.47.0'
     implementation "com.google.protobuf:protobuf-java-util:3.19.2"
+    runtimeOnly 'io.grpc:grpc-netty-shaded:1.47.0'
+    //redis
     implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
+    //библиотеки
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
-    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0'
-    implementation 'com.google.code.gson:gson:2.9.1'
-    implementation group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
+
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre' //кеш
+    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0' //DI
+    implementation 'com.google.code.gson:gson:2.9.1' //json
+//    implementation group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}" //плагины
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30' //yaml
+    //log4j
+//    implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
+//    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
+
+    //spigot 1.15.2
+    implementation spigotApi('1.15.2') //org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT
+    //bungee 1.19
+    implementation bungeecordApi('1.19-R0.1') //https://hub.spigotmc.org/nexus/#view-repositories;public~browseindex
 }
 
 

@@ -17,7 +17,6 @@ public class HyneoModule extends AbstractModule {
         this.path = path;
     }
 
-
     @Override
     protected void configure() {
         bind(ConfigManager.class);

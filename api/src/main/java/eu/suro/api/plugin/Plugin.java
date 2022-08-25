@@ -13,10 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class Plugin implements Module, ExtensionPoint {
 
     protected Injector injector;
-
-    @Inject
-    private Server path;
-
     @Override
     public void configure(Binder binder) {}
 
@@ -27,37 +23,37 @@ public class Plugin implements Module, ExtensionPoint {
         return injector;
     }
 
-    public <T> void RegisterCommand(T command){
-        path.RegisterCommand(command);
-    }
+//    public <T> void RegisterCommand(T command){
+//        path.RegisterCommand(command);
+//    }
+//
+//    public <T> void RegisterListener(T listener){
+//        path.RegisterListener(listener);
+//    }
+//
+//    public void executeAsync(Runnable runnable){
+//        path.executeAsync(runnable);
+//    }
+//
+//    public <T> Map<String, T> getServers(){
+//        return path.getServers();
+//    }
+//
+//    public <T> T getPlayer(String username){
+//        return path.getPlayer(username);
+//    }
+//
+//    public void callEvent(Object event){
+//        path.callEvent(event);
+//    }
+//
+//    public void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time){
+//        path.executeAsyncAfter(runnable, timeUnit, time);
+//    }
 
-    public <T> void RegisterListener(T listener){
-        path.RegisterListener(listener);
-    }
-
-    public void executeAsync(Runnable runnable){
-        path.executeAsync(runnable);
-    }
-
-    public <T> Map<String, T> getServers(){
-        return path.getServers();
-    }
-
-    public <T> T getPlayer(String username){
-        return path.getPlayer(username);
-    }
-
-    public void callEvent(Object event){
-        path.callEvent(event);
-    }
-
-    public void executeAsyncAfter(Runnable runnable, TimeUnit timeUnit, int time){
-        path.executeAsyncAfter(runnable, timeUnit, time);
-    }
-
-    public void executeAsyncTimer(Runnable runnable, TimeUnit timeUnit, int time, int time2){
-        path.executeAsyncTimer(runnable, timeUnit, time, time2);
-    }
+//    public void executeAsyncTimer(Runnable runnable, TimeUnit timeUnit, int time, int time2){
+//        path.executeAsyncTimer(runnable, timeUnit, time, time2);
+//    }
 
     public String getName()
     {

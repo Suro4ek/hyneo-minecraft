@@ -39,7 +39,7 @@ public class ProxyMain extends Plugin {
             file.mkdirs();
         }
         Server path = new ServerImpl();
-        Injector injector =  Guice.createInjector(new HyneoModule(path), new BungeeModule());
+        Injector injector = Guice.createInjector(new HyneoModule(path), new BungeeModule());
         injector.injectMembers(ProxyMain.instance);
         startGRPCClient();
         //load modules

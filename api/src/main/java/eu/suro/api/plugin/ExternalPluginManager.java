@@ -18,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 @Singleton
 public class ExternalPluginManager {
@@ -52,14 +51,14 @@ public class ExternalPluginManager {
         externalPluginManager.loadPlugins();
     }
 
-    public void loadPlugins()
+    public void loadPlugins(Class<? extends Plugin> pluginClass)
     {
         externalPluginManager.startPlugins();
         List<PluginWrapper> startedPlugins = getStartedPlugins();
         List<Plugin> scannedPlugins = new ArrayList<>();
         for (PluginWrapper plugin : startedPlugins)
         {
-            checkDepsAndStart(startedPlugins, scannedPlugins, plugin);
+            checkDepsAndStart(startedPlugins, scannedPlugins, plugin, pluginClass);
         }
 
         scanAndInstantiate(scannedPlugins, true, false);
@@ -228,7 +227,7 @@ public class ExternalPluginManager {
         return plugin;
     }
 
-    private void checkDepsAndStart(List<PluginWrapper> startedPlugins, List<Plugin> scannedPlugins, PluginWrapper pluginWrapper)
+    private void checkDepsAndStart(List<PluginWrapper> startedPlugins, List<Plugin> scannedPlugins, PluginWrapper pluginWrapper, Class p)
     {
 //        boolean depsLoaded = true;
 //        for(PluginDependency dependency : pluginWrapper.getDescriptor().getDependencies())
@@ -245,17 +244,16 @@ public class ExternalPluginManager {
 //            return;
 //        }
 
-        scannedPlugins.addAll(loadPlugin(pluginWrapper.getPluginId()));
+        scannedPlugins.addAll(loadPlugin(pluginWrapper.getPluginId(), p));
     }
 
-    private List<Plugin> loadPlugin(String pluginId)
+    private List<Plugin> loadPlugin(String pluginId, Class p)
     {
         List<Plugin> scannedPlugins = new ArrayList<>();
         try {
-            List<Plugin> extensions = externalPluginManager.getExtensions(Plugin.class, pluginId);
+            List<Plugin> extensions = externalPluginManager.getExtensions(p, pluginId);
             for(Plugin plugin : extensions)
             {
-
                 pluginClassLoaders.add(plugin.getClass().getClassLoader());
 
                 pluginsMap.remove(plugin.getClass().getSimpleName());

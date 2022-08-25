@@ -17,12 +17,16 @@ repositories {
             password = 'lq6greMyJaxF'
         }
     }
+
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
 }
 
 dependencies {
-    implementation 'hyneo-minecraft:api:1.0.18'
+    implementation 'hyneo-minecraft:api:1.0.19'
     implementation 'dev.rollczi.litecommands:bungee:2.4.2'
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
+
 }
 
 test {

@@ -45,9 +45,10 @@ public class ConfigManager {
 
     public static String generateNameModule(Class classModule) {
         String name = classModule.getSimpleName();
-        if (StringUtils.startsWithIgnoreCase(name, "Main")) {
+        if (StringUtils.startsWithIgnoreCase(name, "Config")) {
             name = name.substring(4);
         }
+        name = name.toLowerCase().replace("config", "");
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Нельзя называть класс модуля " + classModule.getName() + ", выберите уникальное имя");
         }

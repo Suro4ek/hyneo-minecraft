@@ -115,8 +115,15 @@ public class ConfigInvocationHandler implements InvocationHandler {
                     return null;
                 }
             } else if(item.value() != null){
-                setIfNotExist(ConfigManager.getWholeKey(null, item.keyName()), item.value());
-                return item.value();
+                setIfNotExist(ConfigManager.getWholeKey(null, item.keyName()), parseString(item.value()));
+                try {
+                    Object objectValue = stringToObject(item.value(), method.getReturnType());
+                    return objectValue;
+                }catch (Exception e)
+                {
+                    System.out.println(e);
+                    return null;
+                }
             }else {
                 if (method.isDefault())
                 {
@@ -278,6 +285,15 @@ public class ConfigInvocationHandler implements InvocationHandler {
     public Set<String> getKeys(String section) {
         final Map<String, Object> map = (Map) this.get(section);
         return map == null ? Collections.emptySet() : new LinkedHashSet<>(map.keySet());
+    }
+
+    public Object parseString(String str){
+        if(str.startsWith("[")){
+            str = str.replace("[", "").replace("]", "");
+            return str.split(",");
+        }else {
+            return str;
+        }
     }
 
     public String objectToString(Object object)
