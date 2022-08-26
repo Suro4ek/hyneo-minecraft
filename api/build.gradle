@@ -70,6 +70,7 @@ repositories {
 
 
 dependencies {
+    //ебал я в врот ваш netty пошел нахуй
     implementation group: 'io.grpc', name: 'grpc-okhttp', version: '1.49.0'
     //grpc
     implementation 'io.grpc:grpc-protobuf:1.49.0'
