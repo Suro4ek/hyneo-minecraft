@@ -4,12 +4,13 @@
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
-        <option name="bungeeAnnotationResultPath" value="$PROJECT_DIR$/api/build/spigradle/bungee_main" />
-        <option name="nukkitAnnotationResultPath" value="$PROJECT_DIR$/api/build/spigradle/nukkit_main" />
-        <option name="pluginAnnotationResultPath" value="$PROJECT_DIR$/api/build/spigradle/plugin_main" />
-        <option name="spigotAnnotationResultPath" value="$PROJECT_DIR$/api/build/spigradle/spigot_main" />
+        <option name="bungeeAnnotationResultPath" value="C:\Users\FS\IdeaProjects\hyneo-minecraft\api\build\spigradle\bungee_main" />
+        <option name="nukkitAnnotationResultPath" value="C:\Users\FS\IdeaProjects\hyneo-minecraft\api\build\spigradle\nukkit_main" />
+        <option name="pluginAnnotationResultPath" value="C:\Users\FS\IdeaProjects\hyneo-minecraft\api\build\spigradle\plugin_main" />
+        <option name="spigotAnnotationResultPath" value="C:\Users\FS\IdeaProjects\hyneo-minecraft\api\build\spigradle\spigot_main" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/kr.entree/spigradle-annotations/2.2.0/d6cccf0428074bd2cd715fea1d1528113a109e96/spigradle-annotations-2.2.0.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.5.31/ff5d99aecd328872494e8921b72bf6e3af97af3e/kotlin-stdlib-jdk8-1.5.31.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.5.31/77e0f2568912e45d26c31fd417a332458508acdf/kotlin-stdlib-jdk7-1.5.31.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.5.31/6628d61d0f5603568e72d2d5915d2c034b4f1c55/kotlin-stdlib-1.5.31.jar" />
@@ -19,7 +20,7 @@
         <module name="hyneo-minecraft.api.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="17">
       <module name="auth" target="11" />
       <module name="auth.main" target="11" />
       <module name="auth.test" target="11" />

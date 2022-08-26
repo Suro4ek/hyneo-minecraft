@@ -1,9 +1,3 @@
-/*
-блять просто помогает брать спокойно из воздуха spigot и bungee-cord,
-но если блять автор не обновит базу данных и придется переписывать весь код,
-то он пидарас
-*/
-
 buildscript {
     ext {
         // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-bom
@@ -16,111 +10,100 @@ buildscript {
         spigradleVersion = '2.4.2'
     }
 }
+
+/*
+блять просто помогает брать спокойно из воздуха spigot и bungee-cord,
+но если блять автор не обновит базу данных и придется переписывать весь код,
+то он пидарас
+*/
+
 plugins {
-    id "com.google.protobuf" version "${protobufPluginVersion}"
-    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+//    id "com.google.protobuf" version "0.8.19"
     id "kr.entree.spigradle" version "${spigradleVersion}"
     id 'kr.entree.spigradle.bungee' version "${spigradleVersion}"
 }
 
+version = "2.0.0"
+
+//nexus
+apply from: "gradle/publish.gradle"
+//apply from: "gradle/proto.gradle"
+
+//plugin.yml
+spigot {
+    authors 'Suro'
+    load = STARTUP
+}
+
+//bungee.yml
 bungee {
-    description 'A Bungeecord plugin.'
-    author 'Me'
-    depends 'foo', 'bar'
-    softDepends 'soft'
+    name "HyNeo-API"
+    author 'Suro'
+    description 'HyNeo-API is a plugin for HyNeo Minecraft server.'
 }
 
-version = "1.0.19"
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact("build/libs/api-"+version+"-all.jar") {
-                extension "jar"
-            }
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username project.properties['nexusUsername']
-                password project.properties['nexusPassword']
-            }
-            url project.properties['nexusUrl']
-        }
-    }
-}
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.19.2"
-    }
-    plugins {
-        grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.47.0"
-        }
-    }
-    generatedFilesBaseDir = "$projectDir/src"
-    generateProtoTasks {
-        all()*.plugins { grpc {} }
-    }
-}
 
-sourceSets {
-    main {
-        proto {
-            srcDir "$projectDir/proto"
-        }
-    }
-}
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+targetCompatibility = '17'
+sourceCompatibility = '17'
 
 
 shadowJar {
-    classifier = ''
-    dependencies {
-        include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
-    }
-    relocate 'co.aikar.commands', "${packageName}.acf"
-    relocate 'co.aikar.locales', "${packageName}.locales"
+//    classifier = ''
+//    dependencies {
+//        include(dependency('co.aikar:acf-paper:0.5.0-SNAPSHOT'))
+//    }
+//    relocate 'co.aikar.commands', "${packageName}.acf"
+//    relocate 'co.aikar.locales', "${packageName}.locales"
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
     maven { url "https://repo.panda-lang.org/releases" }
-
 //    //https://hub.spigotmc.org/nexus/#view-repositories;snapshots~browsestorage check version spigot and bukkit
 }
 
 
 dependencies {
-    //нужны чтобы аннотации для плагинов работали
-//    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
-    //litecommand framework
-    implementation 'dev.rollczi.litecommands:core:2.4.2'
+    implementation group: 'io.grpc', name: 'grpc-okhttp', version: '1.49.0'
     //grpc
-    implementation 'io.grpc:grpc-protobuf:1.47.0'
-    implementation 'io.grpc:grpc-stub:1.47.0'
-    implementation "com.google.protobuf:protobuf-java-util:3.19.2"
-    runtimeOnly 'io.grpc:grpc-netty-shaded:1.47.0'
-    //redis
+    implementation 'io.grpc:grpc-protobuf:1.49.0'
+    implementation 'io.grpc:grpc-stub:1.49.0'
+    implementation 'com.google.protobuf:protobuf-java-util:3.21.5'
+
+    implementation 'com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0'
+//
+//    //redis
     implementation group: 'redis.clients', name: 'jedis', version: '4.2.3'
-    //библиотеки
-    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
-
+//    //библиотеки
+//    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+//    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    implementation 'dev.rollczi.litecommands:core:2.5.0'
+    implementation 'dev.rollczi.litecommands:bungee:2.5.0'
+    implementation 'dev.rollczi.litecommands:bukkit:2.5.0'
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre' //кеш
-    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0' //DI
-    implementation 'com.google.code.gson:gson:2.9.1' //json
-//    implementation group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}" //плагины
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30' //yaml
-    //log4j
-//    implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
-//    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
-
+////    implementation group: 'com.google.inject', name: 'guice', version: '5.1.0' //DI
+//    implementation 'com.google.code.gson:gson:2.9.1' //json
+//    //log4j
+////    implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
+////    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
+////    implementation project(':nms')
+//
+//    implementation 'com.github.DevNatan:inventory-framework:v2.5.4-beta'
+//    //lombok уменьшаем код
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
     //spigot 1.15.2
     compileOnly spigot('1.15.2')
     //bungee 1.19
-    compileOnly bungeecord('1.19-R0.1-SNAPSHOT')//https://hub.spigotmc.org/nexus/#view-repositories;public~browseindex
+    compileOnly bungeecord('1.19-R0.1-SNAPSHOT') //https://hub.spigotmc.org/nexus/#view-repositories;public~browseindex
 }
 
 
+tasks.prepareSpigotPlugins.dependsOn(shadowJar)
+tasks.prepareBungeePlugin.dependsOn(shadowJar)

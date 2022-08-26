@@ -1,0 +1,20 @@
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact("build/libs/api-"+version+"-all.jar") {
+                extension "jar"
+            }
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username project.properties['nexusUsername']
+                password project.properties['nexusPassword']
+            }
+            url project.properties['nexusUrl']
+        }
+    }
+}
