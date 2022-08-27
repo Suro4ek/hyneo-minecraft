@@ -71,6 +71,18 @@ public class ScheduleBukkit {
     }
 
     /**
+     * Выполнить позже async
+     * @param runnable таск
+     * @param delay    через сколько выполнить
+     * @param time     тип времени
+     * @return bukkit task
+     */
+    public static BukkitTask laterAsync(Runnable runnable, long delay, TimeUnit time) {
+        return bukkitScheduleBukkitr.runTaskLaterAsynchronously(plugin, runnable, time.toSeconds(delay) * 20);
+    }
+
+
+    /**
      * Запустить таймер
      * @param runnable таск
      * @param delay    через сколько выполнить
@@ -80,6 +92,18 @@ public class ScheduleBukkit {
      */
     public static BukkitTask timer(Runnable runnable, long delay, long period, TimeUnit time) {
         return bukkitScheduleBukkitr.runTaskTimer(plugin, runnable, time.toSeconds(delay) * 20, time.toSeconds(period) * 20);
+    }
+
+    /**
+     * Запустить таймер async
+     * @param runnable таск
+     * @param delay    через сколько выполнить
+     * @param period   через сколько повторять
+     * @param time     тип времени
+     * @return bukkit task
+     */
+    public static BukkitTask timerAsync(Runnable runnable, long delay, long period, TimeUnit time) {
+        return bukkitScheduleBukkitr.runTaskTimerAsynchronously(plugin, runnable, time.toSeconds(delay) * 20, time.toSeconds(period) * 20);
     }
 
     /**
