@@ -1,31 +1,29 @@
-package eu.suro.api.user.bukkit;
+package eu.suro.api.user;
 
-import eu.suro.api.user.APIBukkit;
 import eu.suro.redis.Redis;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-public interface IUser {
+public interface IUser<P> {
+
     static Stream<IUser> getUsers() {
-        return APIBukkit.getUserManager().getUsers();
+        return APIUser.getUserManager().getUsers();
     }
 
     @Nullable
-    static IUser getUser(int id) {
+    static <T> IUser<T> getUser(int id) {
         return getUsers().filter(user -> (user.getId() == id)).findAny().orElse(null);
     }
 
     @Nullable
-    static IUser getUser(String name) {
+    static <T> IUser<T> getUser(String name) {
         return getUsers().filter(user -> user.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 
-    static IUser getUser(Player player) {
-        return APIBukkit.getUserManager().getUser(player);
+    static <T> IUser<T> getUser(T player) {
+        return APIUser.getUserManager().getUser(player);
     }
 
 
@@ -142,7 +140,7 @@ public interface IUser {
         return getPrefix() + getName();
     }
 
-    default Player getPlayer() {
+    default P getPlayer() {
         throw new UnsupportedOperationException();
     }
 
@@ -165,4 +163,5 @@ public interface IUser {
     String getName();
 
     void sendMessage(String paramString, String... paramVarArgs);
+
 }

@@ -1,6 +1,5 @@
 package eu.suro;
 
-//import eu.suro.grpc.GRPChannel;
 import eu.suro.grpc.GRPChannel;
 import eu.suro.messanger.MessangerInit;
 import eu.suro.messanger.listener.BungeeMessangerListener;
@@ -25,6 +24,7 @@ public class BungeeMain extends Plugin {
         RedisInit.initRedis(getDataFolder());
         MessangerInit.init(new RedisPacketListener<>(new BungeeRedisEventImpl()), "messenger", "messenger.bungee");
         getProxy().getPluginManager().registerListener(this, new BungeeMessangerListener());
+
     }
 
     public static BungeeMain getInstance() {

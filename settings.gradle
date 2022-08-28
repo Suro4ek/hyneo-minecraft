@@ -11,5 +11,4 @@ pluginManagement {
 
 rootProject.name = 'hyneo-minecraft'
 include 'api'
-include 'nms'
 

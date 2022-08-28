@@ -19,7 +19,6 @@ buildscript {
 
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-//    id "com.google.protobuf" version "0.8.19"
     id "kr.entree.spigradle" version "${spigradleVersion}"
     id 'kr.entree.spigradle.bungee' version "${spigradleVersion}"
 }
@@ -42,9 +41,6 @@ bungee {
     author 'Suro'
     description 'HyNeo-API is a plugin for HyNeo Minecraft server.'
 }
-
-
-
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
@@ -76,7 +72,6 @@ dependencies {
     implementation 'io.grpc:grpc-protobuf:1.49.0'
     implementation 'io.grpc:grpc-stub:1.49.0'
     implementation 'com.google.protobuf:protobuf-java-util:3.21.5'
-
     implementation 'com.github.Exlll.ConfigLib:configlib-yaml:v4.2.0'
 //
 //    //redis
@@ -95,7 +90,7 @@ dependencies {
 ////    implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
 ////    implementation project(':nms')
 //
-//    implementation 'com.github.DevNatan:inventory-framework:v2.5.4-beta'
+    implementation 'com.github.DevNatan:inventory-framework:v2.5.4-beta'
 //    //lombok уменьшаем код
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'

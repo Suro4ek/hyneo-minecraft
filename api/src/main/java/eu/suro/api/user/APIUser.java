@@ -1,11 +1,11 @@
 package eu.suro.api.user;
 
-import eu.suro.api.user.bukkit.UserManager;
 
-public class APIBukkit {
+public class APIUser{
+
     private static UserManager userManager;
 
-    private APIBukkit() {
+    private APIUser() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
@@ -14,6 +14,6 @@ public class APIBukkit {
     }
 
     public static void setUserManager(UserManager userManager) {
-        APIBukkit.userManager = userManager;
+        APIUser.userManager = userManager;
     }
 }

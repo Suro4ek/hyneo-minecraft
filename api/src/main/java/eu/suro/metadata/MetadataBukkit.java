@@ -1,21 +1,15 @@
 package eu.suro.metadata;
 
 import eu.suro.SpigotMain;
-import eu.suro.api.user.bukkit.IUser;
+import eu.suro.api.user.IUser;
 import eu.suro.messanger.listener.BukkitMessageListener;
-import eu.suro.metadata.type.UserBukkitMetadataRegistry;
+import eu.suro.metadata.type.UserMetadataRegistry;
 import eu.suro.utils.ScheduleBukkit;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -31,7 +25,7 @@ public final class MetadataBukkit {
         Bukkit.getPluginManager().registerEvents(new BukkitMessageListener(), SpigotMain.getInstance());
         if (!SETUP.getAndSet(true)) {
             ScheduleBukkit.timerAsync(() -> {
-                StandardMetadataRegistries.USER_BUKKIT_METADATA_REGISTRY.cleanup();
+                StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup();
             }, 1, 1, TimeUnit.MINUTES);
         }
     }
@@ -41,9 +35,9 @@ public final class MetadataBukkit {
      *
      * @return the {@link UserBukkitMetadataRegistry}
      */
-    public static UserBukkitMetadataRegistry users() {
+    public static UserMetadataRegistry users() {
         ensureSetup();
-        return StandardMetadataRegistries.USER_BUKKIT_METADATA_REGISTRY;
+        return StandardMetadataRegistries.USER_METADATA_REGISTRY;
     }
 
     @Nonnull

@@ -1,9 +1,9 @@
 package eu.suro.metadata;
 
 import eu.suro.BungeeMain;
-import eu.suro.api.user.bungee.IUser;
+import eu.suro.api.user.IUser;
 import eu.suro.metadata.listener.BungeeMetadataListener;
-import eu.suro.metadata.type.UserBungeeMetadataRegistry;
+import eu.suro.metadata.type.UserMetadataRegistry;
 import eu.suro.utils.ScheduleBungee;
 import net.md_5.bungee.api.ProxyServer;
 
@@ -27,7 +27,7 @@ public final class MetadataBungee {
             ProxyServer.getInstance().getPluginManager().registerListener(BungeeMain.getInstance(), new BungeeMetadataListener());
             // cache housekeeping task
             ScheduleBungee.timer(() -> {
-                StandardMetadataRegistries.USER_BUNGEE_METADATA_REGISTRY.cleanup();
+                StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup();
            }, 1, 1, TimeUnit.MINUTES);
         }
     }
@@ -37,9 +37,9 @@ public final class MetadataBungee {
      *
      * @return the {@link UserBungeeMetadataRegistry}
      */
-    public static UserBungeeMetadataRegistry users() {
+    public static UserMetadataRegistry users() {
         ensureSetup();
-        return StandardMetadataRegistries.USER_BUNGEE_METADATA_REGISTRY;
+        return StandardMetadataRegistries.USER_METADATA_REGISTRY;
     }
 
     @Nonnull
