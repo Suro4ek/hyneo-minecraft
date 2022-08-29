@@ -160,6 +160,8 @@ public interface IUser<P> {
 
     int getId();
 
+    int localeId();
+
     String getName();
 
     void sendMessage(String paramString, String... paramVarArgs);

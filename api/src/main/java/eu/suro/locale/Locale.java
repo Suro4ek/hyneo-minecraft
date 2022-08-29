@@ -62,4 +62,24 @@ class Locale {
         }
     }
 
+    void addFromSite(String path) throws IOException {
+        URL oracle = new URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/"+ path + name + ".yml");
+        Map<Object, Object> map = YAML.loadAs(new InputStreamReader(oracle.openStream()), LinkedHashMap.class);
+        if (map == null)
+            return;
+
+        this.size = this.size + map.size();
+        for (Map.Entry<Object, Object> entry : map.entrySet()) {
+            String key = entry.getKey().toString();
+            Object data = entry.getValue();
+
+            if (data instanceof List) {
+                listMessages.put(key, (List<String>) data);
+                continue;
+            }
+
+            messages.put(key, data.toString());
+        }
+    }
+
 }

@@ -19,4 +19,14 @@ public class LocaleStorage {
             }
         }
     }
+
+    public static void addLocales(String path){
+        for (Language language : Language.values()) {
+            try {
+                language.getLocale().loadFromSite(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
