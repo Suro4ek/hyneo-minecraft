@@ -1,11 +1,9 @@
 package eu.suro.metadata;
 
-import eu.suro.BungeeMain;
+import eu.suro.VelocityMain;
 import eu.suro.api.user.IUser;
-import eu.suro.metadata.listener.BungeeMetadataListener;
+import eu.suro.metadata.listener.VelocityMetadataListener;
 import eu.suro.metadata.type.UserMetadataRegistry;
-import eu.suro.utils.ScheduleBungee;
-import net.md_5.bungee.api.ProxyServer;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -13,7 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class MetadataBungee {
+public final class MetadataVelocity {
 
     private static final AtomicBoolean SETUP = new AtomicBoolean(false);
 
@@ -24,11 +22,18 @@ public final class MetadataBungee {
         }
 
         if (!SETUP.getAndSet(true)) {
-            ProxyServer.getInstance().getPluginManager().registerListener(BungeeMain.getInstance(), new BungeeMetadataListener());
+            VelocityMain.getInstance().
+                    getProxyServer().
+                    getEventManager().
+                    register(VelocityMain.getInstance(), new VelocityMetadataListener());
             // cache housekeeping task
-            ScheduleBungee.timer(() -> {
-                StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup();
-           }, 1, 1, TimeUnit.MINUTES);
+            VelocityMain.getInstance()
+                    .getProxyServer()
+                    .getScheduler()
+                    .buildTask(VelocityMain.getInstance(),
+                            () -> StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup())
+                    .repeat(1L, TimeUnit.MINUTES)
+                    .schedule();
         }
     }
 

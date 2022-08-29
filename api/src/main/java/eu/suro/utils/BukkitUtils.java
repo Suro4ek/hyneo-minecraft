@@ -1,5 +1,6 @@
 package eu.suro.utils;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+@UtilityClass
 public class BukkitUtils {
 
     public static final String VERSION = Bukkit.getServer().getClass().getName().split("\\.")[3]; //версия пакетов

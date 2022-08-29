@@ -1,6 +1,8 @@
 package eu.suro;
 
 import eu.suro.grpc.GRPChannel;
+import eu.suro.locale.Language;
+import eu.suro.locale.LocaleStorage;
 import eu.suro.messanger.MessangerInit;
 import eu.suro.messanger.listener.BukkitMessageListener;
 import eu.suro.redis.RedisInit;
