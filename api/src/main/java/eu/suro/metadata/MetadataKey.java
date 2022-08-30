@@ -2,6 +2,7 @@ package eu.suro.metadata;
 
 
 import com.google.common.reflect.TypeToken;
+import eu.suro.cooldown.Cooldown;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -76,6 +77,10 @@ public interface MetadataKey<T> extends TypeAware<T> {
 
     static MetadataKey<Character> createCharacterKey(String id) {
         return create(id, Character.class);
+    }
+
+    static MetadataKey<Cooldown> createCooldownKey(String id) {
+        return create(id, Cooldown.class);
     }
 
 //    static MetadataKey<Cooldown> createCooldownKey(String id) {

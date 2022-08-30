@@ -22,7 +22,7 @@ plugins {
     id "kr.entree.spigradle" version "${spigradleVersion}"
 }
 
-version = "2.2.3"
+version = "2.2.4"
 
 //nexus
 apply from: "gradle/publish.gradle"
