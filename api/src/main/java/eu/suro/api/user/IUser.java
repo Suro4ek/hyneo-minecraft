@@ -92,45 +92,6 @@ public interface IUser<P> {
         return (getRedisData(key) != null);
     }
 
-//    @SuppressWarnings("unchecked")
-//    default <T> T getMetadata(String key, Class<T> c) {
-//        return getMetadata(key);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default <T> T getMetadata(String key, Supplier<T> supplier) {
-//        return (T)getMetadata().computeIfAbsent(key, k -> supplier.get());
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default <T> T removeMetadata(String key) {
-//        return (T)getMetadata().remove(key);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default <T> T getMetadata(String key) {
-//        return (T)getMetadata().get(key);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default Object setMetadata(String key, Object object) {
-//        return getMetadata().put(key, object);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default <T> T removeMetadata(String key, Class<T> c) {
-//        return (T)getMetadata().remove(key);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default boolean hasMetadata(String key) {
-//        return getMetadata().containsKey(key);
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    default <T> void getMetadata(String key, Consumer<T> consumer, Consumer<Consumer<T>> load) {
-//        getAsyncLoader().loadOrGet(key, (Consumer) consumer, (Consumer) load);
-//    }
 
     default String getPrefix() {
         return getRedisData("prefix", "");
@@ -147,14 +108,6 @@ public interface IUser<P> {
     Map<String, String> getRedisData();
 
     void connect(String paramString);
-
-    void connect(String paramString, int paramInt);
-
-    void connect(int paramInt);
-
-    void connect(int paramInt1, int paramInt2);
-
-    Map<String, Object> getMetadata();
 
     boolean hasPermission(@Nullable String paramString);
 
