@@ -41,7 +41,7 @@ public class VelocityMain {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
-        proxyServer.getEventManager().register(proxyServer, new VelocityMessangerListener());
+        proxyServer.getEventManager().register(this, new VelocityMessangerListener());
     }
 
 
