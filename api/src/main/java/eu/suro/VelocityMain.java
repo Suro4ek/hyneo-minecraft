@@ -1,6 +1,8 @@
 package eu.suro;
 
 import com.google.inject.Inject;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
@@ -35,8 +37,13 @@ public class VelocityMain {
         GRPChannel.init(dataFolder.toFile());
         RedisInit.initRedis(dataFolder.toFile());
         MessangerInit.init(new RedisPacketListener(new VelocityRedisEventImpl()), "messenger", "messenger.proxy");
+    }
+
+    @Subscribe
+    public void onProxyInitialization(ProxyInitializeEvent event) {
         proxyServer.getEventManager().register(proxyServer, new VelocityMessangerListener());
     }
+
 
     public ProxyServer getProxyServer() {
         return proxyServer;
