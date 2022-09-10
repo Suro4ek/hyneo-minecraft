@@ -35,7 +35,7 @@ public class VelocityMain {
         GRPChannel.init(dataFolder.toFile());
         RedisInit.initRedis(dataFolder.toFile());
         MessangerInit.init(new RedisPacketListener(new VelocityRedisEventImpl()), "messenger", "messenger.proxy");
-        proxyServer.getEventManager().register(this, new VelocityMessangerListener());
+        proxyServer.getEventManager().register(proxyServer, new VelocityMessangerListener());
     }
 
     public ProxyServer getProxyServer() {
