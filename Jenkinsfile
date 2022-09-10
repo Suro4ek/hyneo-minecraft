@@ -7,6 +7,9 @@
      tools {
          jdk "JDK17"
      }
+     environment {
+        NEXUS = credentials('nexus')
+     }
 
      stages {
          stage('Build') {

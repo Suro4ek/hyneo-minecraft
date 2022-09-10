@@ -1,9 +1,6 @@
-
-
 subprojects {
     apply plugin: 'java'
 
 }
 
-ext.pluginsDir = rootProject.buildDir.path + '/plugins'
 

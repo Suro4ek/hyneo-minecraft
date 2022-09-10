@@ -11,8 +11,8 @@ publishing {
     repositories {
         maven {
             credentials {
-                username project.properties['nexusUsername']
-                password project.properties['nexusPassword']
+                username "${System.env.NEXUS_USR}"
+                password "${System.env.NEXUS_PSW}"
             }
             url project.properties['nexusUrl']
         }
