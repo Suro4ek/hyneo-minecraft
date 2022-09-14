@@ -10,6 +10,10 @@ public class LocaleStorage {
     static Locale RU_LOCALE = new Locale("ru");
     static Locale EN_LOCALE = new Locale("en");
 
+    /**
+     * Загрузка локализации
+     * @param path - путь до файла
+     */
     public static void updateLocales(String path) { //обновление локализаций
         for (Language language : Language.values()) {
             try {
@@ -20,6 +24,10 @@ public class LocaleStorage {
         }
     }
 
+    /**
+     * Добавление локализации
+     * @param path - путь до файла
+     */
     public static void addLocales(String path){
         for (Language language : Language.values()) {
             try {

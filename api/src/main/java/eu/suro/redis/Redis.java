@@ -25,11 +25,19 @@ public class Redis {
         return redisManager;
     }
 
+    /**
+     * Выполнить транзакцию с редисом async
+     * @param create - Создание транзакции
+     */
     @Deprecated
     public static void async(RedisConsumer create) {
         getManager().async(create);
     }
 
+    /**
+     * Выполнить транзакцию с редисом sync
+     * @param create - Создание транзакции
+     */
     public static void sync(RedisConsumer create) {
         try (Jedis jedis = getManager().getJedisPool().getResource()) {
             create.run(new RedisStream(jedis));
@@ -38,6 +46,10 @@ public class Redis {
         }
     }
 
+    /**
+     * Выполнить pipeline с редисом sync
+     * @param pipelineConsumer - Создание транзакции
+     */
     public static void pipeline(Consumer<Pipeline> pipelineConsumer) {
         try (Jedis jedis = getManager().getJedisPool().getResource()) {
             try (Pipeline pipelined = jedis.pipelined()) {
@@ -48,6 +60,10 @@ public class Redis {
         }
     }
 
+    /**
+     * Выполнить транзакцию с редисом sync
+     * @param transactionConsumer - Создание транзакции
+     */
     public static void transaction(Consumer<Transaction> transactionConsumer) {
         try (Jedis jedis = getManager().getJedisPool().getResource()) {
             try (Transaction transaction = jedis.multi()) {
@@ -58,6 +74,12 @@ public class Redis {
         }
     }
 
+    /**
+     * Парсинг данных с редиса
+     * @param data - Данные
+     * @param clazz - Класс
+     * @return - Объект
+     */
     @Nullable
     public static <T> T parseRedisData(String data, Class<T> clazz) {
         if (data != null && !data.isEmpty())

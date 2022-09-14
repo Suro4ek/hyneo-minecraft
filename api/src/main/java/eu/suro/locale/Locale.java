@@ -42,6 +42,11 @@ class Locale {
         }
     }
 
+    /**
+     * Загрузка локализации с github
+     * @param path - путь до файла
+     * @throws IOException - если не удалось загрузить файл
+     */
     void loadFromSite(String path) throws IOException {
         URL oracle = new URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/"+ path + name + ".yml");
         Map<Object, Object> map = YAML.loadAs(new InputStreamReader(oracle.openStream()), LinkedHashMap.class);
@@ -62,6 +67,11 @@ class Locale {
         }
     }
 
+    /**
+     * Добавление локализации с github
+     * @param path - путь до файла
+     * @throws IOException - если не удалось загрузить файл
+     */
     void addFromSite(String path) throws IOException {
         URL oracle = new URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/"+ path + name + ".yml");
         Map<Object, Object> map = YAML.loadAs(new InputStreamReader(oracle.openStream()), LinkedHashMap.class);

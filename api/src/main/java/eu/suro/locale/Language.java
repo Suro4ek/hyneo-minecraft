@@ -35,6 +35,12 @@ public enum Language {
         return StringUtil.onPercent(size, DEFAULT.getLocale().getSize());
     }
 
+    /**
+     * Получить массив строк по ключу
+     * @param key - ключ
+     * @param replaced - замены
+     * @return - массив строк
+     */
     public List<String> getList(String key, Object... replaced) {
         List<String> list = locale.getListMessages().get(key);
 
@@ -55,6 +61,12 @@ public enum Language {
         return format(list, replaced);
     }
 
+    /**
+     * Получить строку по ключу
+     * @param key - ключ
+     * @param replaced - замены
+     * @return - строка
+     */
     public String getMessage(String key, Object... replaced) {
         String message = locale.getMessages().get(key);
 
@@ -80,6 +92,12 @@ public enum Language {
         return "Language{name=" + name + "}";
     }
 
+    /**
+     * Форматирование строк
+     * @param list - список строк
+     * @param objects - замены
+     * @return - список строк
+     */
     private static List<String> format(List<String> list, Object... objects) {
         String string = String.join("±", list);
         string = String.format(string, objects);
@@ -90,6 +108,11 @@ public enum Language {
     private static final Language DEFAULT = RUSSIAN;
     private static final String ERROR = "§cNot found";
 
+    /**
+     * Получить язык по id
+     * @param id - id
+     * @return - язык
+     */
     public static Language getLanguage(int id) {
         Language language = LOCALES.get(id);
         if (language != null) {
