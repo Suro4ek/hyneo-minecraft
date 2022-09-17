@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-/*
+/**
  * Менеджер для работы с Redis
  * В нем есть методы для работы с каналами и подписки на каналы
  * так же с функциями самого редиса
@@ -54,6 +54,12 @@ public abstract class RedisManager
         return this.jedis;
     }
 
+    /**
+     * Сохранить async объект в редис
+     * @param structure - Структура объекта
+     * @param create - Создание объекта
+     * @param <T> - структура
+     */
     public <T extends RedisStructure> void saveAsync(final T structure, final Consumer<T> create) {
         this.async(stream -> {
             stream.setDomain(structure);

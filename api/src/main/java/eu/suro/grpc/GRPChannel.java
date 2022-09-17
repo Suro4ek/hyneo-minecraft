@@ -15,6 +15,10 @@ public class GRPChannel {
 
     private static ManagedChannel channel;
 
+    /**
+     * Создание канала для подключения к серверу
+     * @param dataFolder - Папка с конфигом
+     */
     public static void init(File dataFolder) {
         if(channel == null){
             File configFile = new File(dataFolder, "config.yml");

@@ -11,9 +11,9 @@ import java.nio.file.Path;
 public class RedisInit {
 
 
-    /*
-        * Этот метод создает конфиг редиса,
-        * соединяет с редисом
+    /**
+     * Создание канала для подключения к серверу
+     * @param dataFolder - Папка с конфигом
      */
     public static void initRedis(File dataFolder) {
         File configFile = new File(dataFolder, "redis.yml");
