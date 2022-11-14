@@ -12,6 +12,6 @@ public class VelocityMetadataListener {
 
     @Subscribe
     public void on(DisconnectEvent e){
-        StandardMetadataRegistries.USER_METADATA_REGISTRY.remove(IUser.getUser(e.getPlayer().getUsername().toLowerCase(Locale.ROOT)));
+        StandardMetadataRegistries.USER_METADATA_REGISTRY.remove(e.getPlayer().getUsername().toLowerCase(Locale.ROOT));
     }
 }

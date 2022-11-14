@@ -13,6 +13,6 @@ public class BukkitMetadataListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent e){
-        StandardMetadataRegistries.USER_METADATA_REGISTRY.remove(IUser.getUser(e.getPlayer().getName().toLowerCase(Locale.ROOT)));
+        StandardMetadataRegistries.USER_METADATA_REGISTRY.remove(e.getPlayer().getName().toLowerCase(Locale.ROOT));
     }
 }
