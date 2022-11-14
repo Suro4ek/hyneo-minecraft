@@ -26,14 +26,14 @@ public final class StandardMetadataRegistries {
         @Override
         public MetadataMap provide(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return provide(IUser.getUser(player.getName().toLowerCase(Locale.ROOT)));
+            return provide(player);
         }
 
         @Nonnull
         @Override
         public Optional<MetadataMap> get(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return get(IUser.getUser(player.getName().toLowerCase(Locale.ROOT)));
+            return get(player);
         }
 
         @Nonnull
