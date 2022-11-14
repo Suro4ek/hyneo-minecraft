@@ -42,7 +42,7 @@ public final class StandardMetadataRegistries {
             Objects.requireNonNull(key, "key");
             ImmutableMap.Builder<IUser, K> ret = ImmutableMap.builder();
             this.cache.asMap().forEach((name, map) -> map.get(key).ifPresent(t -> {
-                IUser player = IUser.getUser(name);
+                IUser player = IUser.getUser(name.toLowerCase());
                 if (player != null) {
                     ret.put(player, t);
                 }
