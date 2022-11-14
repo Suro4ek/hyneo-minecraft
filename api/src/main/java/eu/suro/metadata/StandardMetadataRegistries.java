@@ -20,20 +20,20 @@ public final class StandardMetadataRegistries {
 //    public static final BlockMetadataRegistry BLOCK = new BlockRegistry();
 //    public static final WorldMetadataRegistry WORLD = new WorldRegistry();
 
-    private static final class UserMetadataRegistryImpl extends AbstractMetadataRegistry<IUser> implements UserMetadataRegistry {
+    private static final class UserMetadataRegistryImpl extends AbstractMetadataRegistry<String> implements UserMetadataRegistry {
 
         @Nonnull
         @Override
         public MetadataMap provide(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return provide(player);
+            return provide(player.getName().toLowerCase());
         }
 
         @Nonnull
         @Override
         public Optional<MetadataMap> get(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return get(player);
+            return get(player.getName().toLowerCase());
         }
 
         @Nonnull
@@ -42,7 +42,7 @@ public final class StandardMetadataRegistries {
             Objects.requireNonNull(key, "key");
             ImmutableMap.Builder<IUser, K> ret = ImmutableMap.builder();
             this.cache.asMap().forEach((name, map) -> map.get(key).ifPresent(t -> {
-                IUser player = IUser.getUser(name);
+                IUser player = IUser.getUser(name.toLowerCase());
                 if (player != null) {
                     ret.put(player, t);
                 }
