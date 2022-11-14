@@ -73,6 +73,7 @@ class Locale {
      * @throws IOException - если не удалось загрузить файл
      */
     void addFromSite(String path) throws IOException {
+        System.out.println("[Localization] Загрузка " + path + name + ".yml");
         URL oracle = new URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/"+ path + name + ".yml");
         Map<Object, Object> map = YAML.loadAs(new InputStreamReader(oracle.openStream()), LinkedHashMap.class);
         if (map == null)

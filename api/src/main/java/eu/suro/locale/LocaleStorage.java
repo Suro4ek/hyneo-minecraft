@@ -31,7 +31,7 @@ public class LocaleStorage {
     public static void addLocales(String path){
         for (Language language : Language.values()) {
             try {
-                language.getLocale().loadFromSite(path);
+                language.getLocale().addFromSite(path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
