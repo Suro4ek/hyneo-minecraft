@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Optional;
 
-public interface UserMetadataRegistry extends MetadataRegistry<String> {
+public interface UserMetadataRegistry extends MetadataRegistry<IUser> {
 
     /**
      * Produces a {@link MetadataMap} for the given player.

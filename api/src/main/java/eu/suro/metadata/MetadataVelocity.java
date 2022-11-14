@@ -49,7 +49,7 @@ public final class MetadataVelocity {
 
     @Nonnull
     public static MetadataMap provideForUser(@Nonnull String name) {
-        return users().provide(name);
+        return users().provide(IUser.getUser(name.toLowerCase()));
     }
 
     @Nonnull
@@ -59,7 +59,7 @@ public final class MetadataVelocity {
 
     @Nonnull
     public static Optional<MetadataMap> getForUser(@Nonnull String name) {
-        return users().get(name);
+        return users().get(IUser.getUser(name.toLowerCase()));
     }
 
     @Nonnull
