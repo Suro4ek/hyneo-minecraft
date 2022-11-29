@@ -20,6 +20,7 @@ buildscript {
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id "kr.entree.spigradle" version "${spigradleVersion}"
+    id 'org.jetbrains.kotlin.jvm' version '1.7.21'
 }
 
 version = "${System.env.BUILD_NUMBER}"
@@ -34,6 +35,10 @@ spigot {
     load = STARTUP
 }
 
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/myKotlin'
+    main.java.srcDirs += 'src/main/myJava'
+}
 ////bungee.yml
 //bungee {
 //    name "HyNeo-API"
@@ -89,8 +94,8 @@ dependencies {
     implementation 'dev.rollczi.litecommands:velocity:2.5.0'
     implementation 'dev.rollczi.litecommands:bukkit:2.5.0'
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre' //кеш
-    implementation 'com.github.DevNatan:inventory-framework:v2.5.4-beta'
-    //lombok уменьшаем код
+    implementation 'com.github.DevNatan.inventory-framework:inventory-framework:2.5.4-rc.1'
+//lombok уменьшаем код
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     //spigot 1.15.2
