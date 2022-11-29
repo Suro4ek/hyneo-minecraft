@@ -1,5 +1,6 @@
 package eu.suro.metadata.listener;
 
+import eu.suro.api.user.IUser;
 import eu.suro.metadata.StandardMetadataRegistries;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

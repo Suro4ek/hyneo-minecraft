@@ -26,14 +26,14 @@ public final class StandardMetadataRegistries {
         @Override
         public MetadataMap provide(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return provide(player.getName().toLowerCase(Locale.ROOT));
+            return provide(player.getName().toLowerCase());
         }
 
         @Nonnull
         @Override
         public Optional<MetadataMap> get(@Nonnull IUser player) {
             Objects.requireNonNull(player, "player");
-            return get(player.getName().toLowerCase(Locale.ROOT));
+            return get(player.getName().toLowerCase());
         }
 
         @Nonnull
@@ -42,7 +42,7 @@ public final class StandardMetadataRegistries {
             Objects.requireNonNull(key, "key");
             ImmutableMap.Builder<IUser, K> ret = ImmutableMap.builder();
             this.cache.asMap().forEach((name, map) -> map.get(key).ifPresent(t -> {
-                IUser player = IUser.getUser(name);
+                IUser player = IUser.getUser(name.toLowerCase());
                 if (player != null) {
                     ret.put(player, t);
                 }
