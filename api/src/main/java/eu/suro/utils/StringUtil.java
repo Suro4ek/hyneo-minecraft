@@ -156,30 +156,19 @@ public class StringUtil {
     }
 
     public String getUTFNumber(int number){
-        switch (number) {
-            case 1:
-                return "❶";
-            case 2:
-                return "❷";
-            case 3:
-                return "❸";
-            case 4:
-                return "❹";
-            case 5:
-                return "❺";
-            case 6:
-                return "❻";
-            case 7:
-                return "❼";
-            case 8:
-                return "❽";
-            case 9:
-                return "❾";
-            case 10:
-                return "❿";
-            default:
-                return "0";
-        }
+        return switch (number) {
+            case 1 -> "❶";
+            case 2 -> "❷";
+            case 3 -> "❸";
+            case 4 -> "❹";
+            case 5 -> "❺";
+            case 6 -> "❻";
+            case 7 -> "❼";
+            case 8 -> "❽";
+            case 9 -> "❾";
+            case 10 -> "❿";
+            default -> "0";
+        };
     }
 
     public String getRomanNumber(int number) {
@@ -196,16 +185,11 @@ public class StringUtil {
             return others;
         }
 
-        switch (number % 10) {
-            case 1:
-                return single;
-            case 2:
-            case 3:
-            case 4:
-                return lessFive;
-            default:
-                return others;
-        }
+        return switch (number % 10) {
+            case 1 -> single;
+            case 2, 3, 4 -> lessFive;
+            default -> others;
+        };
     }
 
     public String getCorrectWord(int time, String key, Language language) {
@@ -257,9 +241,7 @@ public class StringUtil {
             StringBuilder cur = new StringBuilder();
             for (int i = 0; i < title.length(); ++i) {
                 cur.append(title.charAt(i));
-                for (int j = 0; j < spaces; ++j) {
-                    cur.append(" ");
-                }
+                cur.append(" ".repeat(spaces));
 
             }
             toReturn.add(cur.toString());

@@ -21,7 +21,6 @@ class Locale constructor(
             val propertyUtils = PropertyUtils()
             propertyUtils.isSkipMissingProperties = true
             constructor.propertyUtils = propertyUtils
-
             return Yaml(constructor)
         }
     }
@@ -44,15 +43,7 @@ class Locale constructor(
         val oracle = URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/$path$name.yml")
         val map = YAML.loadAs(InputStreamReader(oracle.openStream()), LinkedHashMap::class.java) ?: return
         size = map.size
-        for (entry in map){
-            val key = entry.key.toString()
-            val data = entry.value
-            if(data is List<*>){
-                listMessages[key] = data as List<String>
-                continue
-            }
-            messages[key] = data.toString()
-        }
+        addMessages(map)
     }
 
     /**
@@ -65,6 +56,10 @@ class Locale constructor(
         val oracle = URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/$path$name.yml")
         val map = YAML.loadAs(InputStreamReader(oracle.openStream()), LinkedHashMap::class.java) ?: return
         size += map.size
+        addMessages(map)
+    }
+
+    private fun addMessages(map: java.util.LinkedHashMap<*, *>){
         for (entry in map){
             val key = entry.key.toString()
             val data = entry.value
