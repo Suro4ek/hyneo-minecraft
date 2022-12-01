@@ -24,16 +24,14 @@ public final class MetadataBukkit {
         }
         Bukkit.getPluginManager().registerEvents(new BukkitMessageListener(), SpigotMain.getInstance());
         if (!SETUP.getAndSet(true)) {
-            ScheduleBukkit.timerAsync(() -> {
-                StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup();
-            }, 1, 1, TimeUnit.MINUTES);
+            ScheduleBukkit.timerAsync(StandardMetadataRegistries.USER_METADATA_REGISTRY::cleanup, 1, 1, TimeUnit.MINUTES);
         }
     }
 
     /**
-     * Gets the {@link MetadataRegistry} for {@link eu.suro.api.user.bukkit.IUser}s.
+     * Gets the {@link MetadataRegistry} for {@link eu.suro.api.user.IUser}s.
      *
-     * @return the {@link UserBukkitMetadataRegistry}
+     * @return the {@link UserMetadataRegistry}
      */
     public static UserMetadataRegistry users() {
         ensureSetup();
