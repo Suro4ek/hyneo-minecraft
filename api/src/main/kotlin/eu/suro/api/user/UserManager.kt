@@ -3,7 +3,7 @@ package eu.suro.api.user
 import java.util.stream.Stream
 
 
-class UserManager {
+interface UserManager {
     /**
      * Получение всех пользователей
      * @return поток пользователей
