@@ -2,10 +2,8 @@ apply plugin: 'maven-publish'
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            artifact("build/libs/api-"+version+"-all.jar") {
-                extension "jar"
-            }
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
         }
     }
     repositories {
