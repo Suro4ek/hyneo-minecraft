@@ -107,10 +107,5 @@ dependencies {
     annotationProcessor 'com.velocitypowered:velocity-api:3.0.1'
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-}
-
-
 
 tasks.prepareSpigotPlugins.dependsOn(shadowJar)
