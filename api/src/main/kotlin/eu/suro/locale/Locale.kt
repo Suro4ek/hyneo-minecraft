@@ -8,7 +8,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.concurrent.ConcurrentHashMap
 
-class Locale constructor(
+data class Locale constructor(
         private var name: String
 ){
     var size:Int = 0

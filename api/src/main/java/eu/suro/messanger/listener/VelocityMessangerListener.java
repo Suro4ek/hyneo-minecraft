@@ -5,7 +5,6 @@ import eu.suro.messanger.MessangerInit;
 import eu.suro.redis.platform.velocity.VelocityRedisEvent;
 
 public class VelocityMessangerListener {
-
     @Subscribe
     public void on(VelocityRedisEvent e){
         MessangerInit.onPluginMessageReceived(e.getMessage());
