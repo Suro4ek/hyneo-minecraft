@@ -8,13 +8,14 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.util.concurrent.ConcurrentHashMap
 
-data class Locale constructor(
+open class Locale constructor(
         private var name: String
 ){
     var size:Int = 0
     private val YAML: Yaml = newSnakeYaml()
     var messages: ConcurrentHashMap<String, String> = ConcurrentHashMap()
     var listMessages: ConcurrentHashMap<String, List<String>> = ConcurrentHashMap()
+
     companion object{
         fun newSnakeYaml(): Yaml{
             val constructor = Constructor()

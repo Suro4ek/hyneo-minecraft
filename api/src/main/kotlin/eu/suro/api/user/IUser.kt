@@ -3,7 +3,7 @@ package eu.suro.api.user
 import eu.suro.redis.Redis
 import java.util.stream.Stream
 
-interface IUser {
+open interface IUser {
 
     val id: Int
     val localeId: Int

@@ -25,6 +25,4 @@ class SpigotMain: JavaPlugin() {
         server.pluginManager.registerEvents(BukkitMessageListener(), this)
         instance = this;
     }
-
-
 }
