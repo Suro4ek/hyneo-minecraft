@@ -29,6 +29,12 @@ version = "${System.env.BUILD_NUMBER}" as Object
 apply from: "gradle/publish.gradle"
 //apply from: "gradle/proto.gradle"
 
+tasks {
+    shadowJar {
+        archiveClassifier.set("")
+        minimize()
+    }
+}
 //plugin.yml
 spigot {
     authors 'Suro'
