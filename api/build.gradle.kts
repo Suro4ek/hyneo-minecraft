@@ -70,7 +70,7 @@ tasks {
     }
     shadowJar {
         archiveClassifier.set("")
-        minimize()
+//        minimize()
         exclude("**/*.kotlin_metadata")
         exclude("**/*.kotlin_module")
         exclude("**/*.kotlin_builtins")
