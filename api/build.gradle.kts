@@ -24,6 +24,15 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            credentials {
+                username=System.getenv("NEXUS_USR")
+                password=System.getenv("NEXUS_PSW")
+            }
+            url=uri("https://registry.hyneo.ru/repository/maven-releases/")
+        }
+    }
 }
 
 //plugin.yml
