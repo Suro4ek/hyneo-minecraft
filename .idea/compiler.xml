@@ -55,8 +55,6 @@
       <module name="hyneo-minecraft.auth" target="11" />
       <module name="hyneo-minecraft.auth.main" target="11" />
       <module name="hyneo-minecraft.auth.test" target="11" />
-      <module name="hyneo-minecraft.main" target="11" />
-      <module name="hyneo-minecraft.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
