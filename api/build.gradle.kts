@@ -83,7 +83,9 @@ dependencies {
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
     implementation(libs.grpc.stub)
+    implementation(libs.grpc.stub.kotlin)
     implementation(libs.grpc.protobuf)
+    implementation(libs.grpc.protobuf.kotlin)
 
     implementation(libs.configlib.yaml)
 
@@ -106,5 +108,10 @@ dependencies {
     annotationProcessor(libs.velocity)
 
     compileOnly(spigot("1.15.2"))
+
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.7.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.7.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.7.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.7.0")
 
 }
