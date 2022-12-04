@@ -18,6 +18,7 @@ dependencyResolutionManagement{
             //grpc
             version("grpcVersion", "1.47.0-SNAPSHOT")
             version("grpc", "1.49.0")
+            version("grpc-lite", "1.51.0")
             version("grpc-kotlin", "1.3.0")
             version("protobuf_java_util", "3.21.5")
             version("protobufPluginVersion", "0.8.18")
@@ -31,7 +32,7 @@ dependencyResolutionManagement{
             alias("grpc-okhttp").to("io.grpc", "grpc-okhttp").versionRef("grpc")
             alias("grpc-stub").to("io.grpc", "grpc-stub").versionRef("grpc")
             alias("grpc-stub-kotlin").to("io.grpc", "grpc-kotlin-stub").versionRef("grpc-kotlin")
-            alias("grpc-protobuf").to("com.google.protobuf", "protobuf-java-util").versionRef("protobuf_java_util")
+            alias("grpc-protobuf").to("io.grpc", "grpc-protobuf-lite").versionRef("grpc-lite")
             alias("grpc-protobuf-kotlin").to("com.google.protobuf", "protobuf-kotlin").versionRef("protobuf_java_util")
 
             alias("configlib-yaml").to("com.github.Exlll.ConfigLib", "configlib-yaml").versionRef("configlib-yaml")
