@@ -17,11 +17,11 @@ subprojects {
         }
     }
 
-    tasks.withType<ProcessResources> {
-        filesMatching(listOf("*.yml", "*.json")) {
-            expand(project.properties)
-        }
-    }
+//    tasks.withType<ProcessResources> {
+//        filesMatching(listOf("*.yml", "*.json")) {
+//            expand(project.properties)
+//        }
+//    }
 
     tasks.withType<KotlinCompile>().all {
         kotlinOptions {

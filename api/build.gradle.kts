@@ -51,6 +51,7 @@ spigot {
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 tasks {
@@ -61,19 +62,25 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "17"
     }
+
     compileJava{
+
         options.encoding =  "UTF-8"
     }
 
     prepareSpigotPlugins{
         dependsOn(shadowJar)
     }
+
     shadowJar {
         archiveClassifier.set("")
 //        minimize()
         exclude("**/*.kotlin_metadata")
         exclude("**/*.kotlin_module")
         exclude("**/*.kotlin_builtins")
+//        dependencies{
+//            exclude(libs.grpc.protobuf)
+//        }
     }
 }
 
