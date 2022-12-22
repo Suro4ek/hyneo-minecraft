@@ -70,7 +70,7 @@ interface IUser {
      * @return данных
      */
     fun <T: Any> getRedisData(key: String, defaultValue: T?): T? =
-        defaultValue?.let { getRedisData(key, it.javaClass) } ?: defaultValue
+        defaultValue?.let { getRedisData(key, it::class.java) } ?: defaultValue
 
     /**
      * Удаление данных из redis

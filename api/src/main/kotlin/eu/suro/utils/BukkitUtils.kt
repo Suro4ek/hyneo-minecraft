@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitTask
 class BukkitUtils {
 
     companion object{
-        val VERSION : String = Bukkit.getServer().javaClass.name.split("\\.")[3]
+        val VERSION : String = Bukkit.getServer()::class.java.name.split("\\.")[3]
         val MIN_COORD = -29999999
         val MAX_COORD = 29999999
 

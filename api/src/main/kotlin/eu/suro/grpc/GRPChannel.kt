@@ -15,11 +15,10 @@ class GRPChannel {
         @JvmStatic fun init(dataFolder: File){
             if(channel == null){
                 val configFile = File(dataFolder, "config.yml")
-                var grpcConfig = GRPCConfig()
                 if(!configFile.exists()){
-                    YamlConfigurations.save(configFile.toPath(), grpcConfig.javaClass, grpcConfig)
+                    YamlConfigurations.save(configFile.toPath(), GRPCConfig::class.java, GRPCConfig())
                 }
-                grpcConfig = YamlConfigurations.load(configFile.toPath(), grpcConfig.javaClass)
+                val grpcConfig: GRPCConfig = YamlConfigurations.load(configFile.toPath(), GRPCConfig::class.java)
                 val credentials = InsecureChannelCredentials.create()
                 channel = Grpc.newChannelBuilder(grpcConfig.host + ":" + grpcConfig.port, credentials).build()
                 println("[GRPC] Запускаем канал связи с ядром")
