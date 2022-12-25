@@ -16,7 +16,7 @@ import eu.suro.utils.Log
 import java.nio.file.Path
 import java.util.logging.Logger
 
-@Plugin(id = "hyneoapi", name = "HyNeoAPI", version = "1.0", authors = ["Suro"])
+
 class VelocityMain @Inject constructor(
         val proxyServer: ProxyServer,
         logger: Logger,
