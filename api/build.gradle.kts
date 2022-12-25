@@ -92,7 +92,7 @@ tasks {
 
 
 dependencies {
-    implementation(kotlin("stdlib"))
+//    implementation(kotlin("stdlib"))
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
     implementation(libs.grpc.stub)
@@ -121,6 +121,7 @@ dependencies {
 
     compileOnly(spigot("1.15.2"))
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.8.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.8.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.8.0")
