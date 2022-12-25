@@ -120,7 +120,6 @@ dependencies {
     annotationProcessor(libs.lombok)
 
     compileOnly(libs.velocity)
-    annotationProcessor(libs.velocity)
 
     compileOnly(spigot("1.15.2"))
 

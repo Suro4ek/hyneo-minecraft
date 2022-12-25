@@ -1,7 +1,7 @@
 package eu.suro
 
-import com.google.common.eventbus.Subscribe
 import com.google.inject.Inject
+import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
@@ -16,7 +16,7 @@ import eu.suro.utils.Log
 import java.nio.file.Path
 import java.util.logging.Logger
 
-
+@Plugin(id = "hyneo", name = "HyNeoApi", version = "1.0")
 class VelocityMain @Inject constructor(
         val proxyServer: ProxyServer,
         logger: Logger,
