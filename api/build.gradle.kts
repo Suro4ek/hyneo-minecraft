@@ -72,6 +72,13 @@ tasks {
         dependsOn(shadowJar)
     }
 
+
+    processResources {
+        filesMatching("*.json") {
+            expand(project.properties)
+        }
+    }
+
     shadowJar {
         archiveClassifier.set("")
 //        minimize()
@@ -87,6 +94,7 @@ tasks {
 
 
 dependencies {
+    implementation(kotlin("stdlib"))
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
     implementation(libs.grpc.stub)
