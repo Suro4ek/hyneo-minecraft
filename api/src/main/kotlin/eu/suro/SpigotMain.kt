@@ -8,9 +8,10 @@ import eu.suro.redis.RedisInit
 import eu.suro.redis.channel.RedisPacketListener
 import eu.suro.redis.platform.bukkit.BukkitRedisEventImpl
 import eu.suro.utils.Log
-import org.bukkit.Bukkit
+import kr.entree.spigradle.annotations.SpigotPlugin
 import org.bukkit.plugin.java.JavaPlugin
 
+@SpigotPlugin
 class SpigotMain: SuspendingJavaPlugin() {
 
     companion object{
@@ -20,7 +21,7 @@ class SpigotMain: SuspendingJavaPlugin() {
 
     override fun onEnable() {
         //TODO edit
-//        Log.init(Bukkit.getLogger())
+//        Log.init(logger)
         GRPChannel.init(dataFolder)
         RedisInit.initRedis(dataFolder)
         MessangerInit.init(RedisPacketListener(BukkitRedisEventImpl()),  "messenger", "messenger.bukkit")
