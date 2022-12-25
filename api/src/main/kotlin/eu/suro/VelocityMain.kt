@@ -1,9 +1,12 @@
 package eu.suro
 
+import com.github.shynixn.mccoroutine.velocity.MCCoroutine
+import com.github.shynixn.mccoroutine.velocity.SuspendingPluginContainer
 import com.google.inject.Inject
 import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.Plugin
+import com.velocitypowered.api.plugin.PluginContainer
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
 import eu.suro.grpc.GRPChannel
@@ -17,11 +20,13 @@ import java.nio.file.Path
 import java.util.logging.Logger
 
 @Plugin(id = "hyneo", name = "HyNeoApi", version = "1.0")
-class VelocityMain @Inject constructor(
-        val proxyServer: ProxyServer,
-        logger: Logger,
-        @DataDirectory val dataFolder: Path,
-){
+class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPluginContainer, @DataDirectory val dataDirectory: Path) {
+
+    @Inject
+    lateinit var proxyServer: ProxyServer
+
+    @Inject
+    lateinit var pluginContainer: PluginContainer
 
     companion object{
         @JvmStatic var instance: VelocityMain? = null
@@ -29,12 +34,15 @@ class VelocityMain @Inject constructor(
     }
 
     init {
+        suspendingPluginContainer.initialize(this)
         instance = this;
-        Log.init(logger)
-        GRPChannel.init(dataFolder.toFile())
-        RedisInit.initRedis(dataFolder.toFile())
+
+        Log.init(suspendingPluginContainer.logger)
+        GRPChannel.init(dataDirectory.toFile())
+        RedisInit.initRedis(dataDirectory.toFile())
         MessangerInit.init(RedisPacketListener(VelocityRedisEventImpl()), "messenger", "messenger.proxy")
     }
+
 
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){

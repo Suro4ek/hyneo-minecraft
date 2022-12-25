@@ -1,8 +1,10 @@
 package eu.suro.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.Marker;
+
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class Log {
 
@@ -17,19 +19,19 @@ public final class Log {
     }
 
     public static void warn(@Nonnull String s) {
-        Log.logger.warning(s);
+        Log.logger.warn(s);
     }
 
     public static void severe(@Nonnull String s) {
-        Log.logger.severe(s);
+        Log.logger.info(s);
     }
 
     public static void warn(@Nonnull String s, Throwable t) {
-        Log.logger.log(Level.WARNING, s, t);
+        Log.logger.warn(Marker.ANY_MARKER, s, t);
     }
 
     public static void severe(@Nonnull String s, Throwable t) {
-        Log.logger.log(Level.SEVERE, s, t);
+        Log.logger.info(Marker.ANY_MARKER, s, t);
     }
 
 }
