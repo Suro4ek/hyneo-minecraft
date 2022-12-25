@@ -64,14 +64,12 @@ tasks {
     }
 
     compileJava{
-
         options.encoding =  "UTF-8"
     }
 
     prepareSpigotPlugins{
         dependsOn(shadowJar)
     }
-
 
     processResources {
         filesMatching("*.json") {
