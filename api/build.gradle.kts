@@ -71,6 +71,10 @@ tasks {
         dependsOn(shadowJar)
     }
 
+    generateSpigotDescription{
+        enabled = false
+    }
+
     processResources {
         filesMatching("*.json") {
             expand(project.properties)
