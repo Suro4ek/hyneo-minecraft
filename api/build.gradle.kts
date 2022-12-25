@@ -121,9 +121,9 @@ dependencies {
 
     compileOnly(spigot("1.15.2"))
 
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.7.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.7.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.7.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.7.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.8.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.8.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.8.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.8.0")
 
 }
