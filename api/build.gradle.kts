@@ -95,7 +95,7 @@ tasks {
 }
 
 
-
+val cloudVersion = "1.8.0"
 dependencies {
 
     implementation(kotlin("stdlib"))
@@ -112,9 +112,17 @@ dependencies {
 
     implementation(libs.trove4j)
 
-    implementation(libs.litecommands.core)
-    implementation(libs.litecommands.velocity)
-    implementation(libs.litecommands.bukkit)
+    implementation("cloud.commandframework", "cloud-core", cloudVersion)
+    implementation("cloud.commandframework", "cloud-annotations", cloudVersion)
+//    kapt("cloud.commandframework", "cloud-annotations", cloudVersion)
+    implementation("cloud.commandframework", "cloud-velocity", cloudVersion)
+    implementation("cloud.commandframework", "cloud-kotlin-extensions", cloudVersion)
+    implementation("cloud.commandframework", "cloud-kotlin-coroutines-annotations", cloudVersion)
+    implementation("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
+
+//    implementation(libs.litecommands.core)
+//    implementation(libs.litecommands.velocity)
+//    implementation(libs.litecommands.bukkit)
 
     implementation(libs.guava)
 
@@ -126,6 +134,8 @@ dependencies {
     compileOnly(libs.velocity)
 
     compileOnly(spigot("1.15.2"))
+
+
 
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
