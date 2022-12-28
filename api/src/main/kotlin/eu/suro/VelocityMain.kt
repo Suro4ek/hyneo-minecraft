@@ -2,6 +2,7 @@ package eu.suro
 
 import com.github.shynixn.mccoroutine.velocity.MCCoroutine
 import com.github.shynixn.mccoroutine.velocity.SuspendingPluginContainer
+import com.github.shynixn.mccoroutine.velocity.registerSuspend
 import com.google.inject.Inject
 import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
@@ -17,7 +18,6 @@ import eu.suro.redis.channel.RedisPacketListener
 import eu.suro.redis.platform.velocity.VelocityRedisEventImpl
 import eu.suro.utils.Log
 import java.nio.file.Path
-import java.util.logging.Logger
 
 @Plugin(id = "hyneo", name = "HyNeoApi", version = "1.0")
 class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPluginContainer, @DataDirectory val dataDirectory: Path) {
@@ -30,7 +30,7 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
 
     companion object{
         @JvmStatic var instance: VelocityMain? = null
-        private set;
+        private set
     }
 
     init {
@@ -46,6 +46,7 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
 
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){
+        println("EASY")
         proxyServer.eventManager.register(this, VelocityMessangerListener())
     }
 }

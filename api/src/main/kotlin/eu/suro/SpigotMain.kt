@@ -1,6 +1,6 @@
 package eu.suro
 
-import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
+//import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
 import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
 import eu.suro.messanger.listener.BukkitMessageListener
@@ -12,7 +12,7 @@ import kr.entree.spigradle.annotations.SpigotPlugin
 import org.bukkit.plugin.java.JavaPlugin
 
 @SpigotPlugin
-class SpigotMain: SuspendingJavaPlugin() {
+class SpigotMain: JavaPlugin() {
 
     companion object{
         @JvmStatic var instance: SpigotMain? = null

@@ -11,7 +11,7 @@ dependencyResolutionManagement{
             version("spigradle", "2.4.2")
             //minecraft
             version("spigot", "1.15.2")
-            version("velocity_api", "3.0.1")
+            version("velocity_api", "3.1.2-SNAPSHOT")
             version("litecommands", "2.5.0")
             version("configlib_yaml", "v4.2.0")
             version("inventory_framework", "2.5.4-rc.1")
