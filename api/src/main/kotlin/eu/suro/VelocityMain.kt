@@ -19,7 +19,7 @@ import eu.suro.redis.platform.velocity.VelocityRedisEventImpl
 import eu.suro.utils.Log
 import java.nio.file.Path
 
-@Plugin(id = "hyneo", name = "HyNeoApi", version = "1.0")
+//@Plugin(id = "hyneo", name = "HyNeoApi", version = "1.0")
 class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPluginContainer, @DataDirectory val dataDirectory: Path) {
 
     @Inject
@@ -46,7 +46,6 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
 
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){
-        println("EASY")
         proxyServer.eventManager.register(this, VelocityMessangerListener())
     }
 }

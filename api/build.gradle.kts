@@ -114,7 +114,6 @@ dependencies {
 
     implementation("cloud.commandframework", "cloud-core", cloudVersion)
     implementation("cloud.commandframework", "cloud-annotations", cloudVersion)
-//    kapt("cloud.commandframework", "cloud-annotations", cloudVersion)
     implementation("cloud.commandframework", "cloud-velocity", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-extensions", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-coroutines-annotations", cloudVersion)
@@ -137,11 +136,12 @@ dependencies {
 
 
 
-
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.8.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.8.0")
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-hocon", "1.3.3")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.9.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.9.0")
 //    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.8.0")
 //    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.8.0")
 
