@@ -4,6 +4,7 @@
 то он пидарас
 */
 import kr.entree.spigradle.kotlin.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
@@ -49,9 +50,9 @@ spigot {
 //sourceCompatibility = '17'
 
 
+
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 tasks {
@@ -84,10 +85,11 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
+        relocate("cloud.commandframework", "eu.suro.shaded.cloud")
 //        minimize()
         exclude("**/*.kotlin_metadata")
-        exclude("**/*.kotlin_module")
-        exclude("**/*.kotlin_builtins")
+//        exclude("**/*.kotlin_module")
+//        exclude("**/*.kotlin_builtins")
 //        dependencies{
 //            exclude(libs.grpc.protobuf)
 //        }
@@ -98,7 +100,8 @@ tasks {
 val cloudVersion = "1.8.0"
 dependencies {
 
-    implementation(kotlin("stdlib"))
+//    implementation(kotlin("stdlib"))
+//    implementation(kotlin("reflect"))
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
     implementation(libs.grpc.stub)
@@ -106,11 +109,13 @@ dependencies {
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.protobuf.kotlin)
 
+
     implementation(libs.configlib.yaml)
 
     implementation(libs.jedis)
 
     implementation(libs.trove4j)
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 
     implementation("cloud.commandframework", "cloud-core", cloudVersion)
     implementation("cloud.commandframework", "cloud-annotations", cloudVersion)
@@ -118,11 +123,12 @@ dependencies {
     implementation("cloud.commandframework", "cloud-kotlin-extensions", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-coroutines-annotations", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
+    annotationProcessor("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
 
+//    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.2")
 //    implementation(libs.litecommands.core)
 //    implementation(libs.litecommands.velocity)
 //    implementation(libs.litecommands.bukkit)
-
     implementation(libs.guava)
 
     implementation(libs.inventory.framework)
@@ -136,10 +142,9 @@ dependencies {
 
 
 
-    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
-    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-hocon", "1.3.3")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
+//    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
+//    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-hocon", "1.3.3")
+
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.9.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.9.0")
 //    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.8.0")
