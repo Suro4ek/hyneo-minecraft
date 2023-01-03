@@ -100,7 +100,7 @@ tasks {
 val cloudVersion = "1.8.0"
 dependencies {
 
-//    implementation(kotlin("stdlib"))
+    implementation(kotlin("stdlib"))
 //    implementation(kotlin("reflect"))
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
@@ -115,7 +115,7 @@ dependencies {
     implementation(libs.jedis)
 
     implementation(libs.trove4j)
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
+
 
     implementation("cloud.commandframework", "cloud-core", cloudVersion)
     implementation("cloud.commandframework", "cloud-annotations", cloudVersion)
@@ -125,7 +125,8 @@ dependencies {
     implementation("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
     annotationProcessor("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
 
-//    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.2")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 //    implementation(libs.litecommands.core)
 //    implementation(libs.litecommands.velocity)
 //    implementation(libs.litecommands.bukkit)
