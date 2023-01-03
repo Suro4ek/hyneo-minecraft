@@ -35,9 +35,6 @@ import java.util.function.Function
 class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPluginContainer, @DataDirectory val dataDirectory: Path) {
 
     @Inject
-    lateinit var injector: Injector
-
-    @Inject
     lateinit var proxyServer: ProxyServer
 
     @Inject
@@ -61,20 +58,5 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){
         proxyServer.eventManager.register(this, VelocityMessangerListener())
-        proxyServer.commandManager.metaBuilder("s").aliases("s", "sdsd")
-        val childInjector: Injector = this.injector.createChildInjector(
-            CloudInjectionModule(
-                CommandSource::class.java,
-                AsynchronousCommandExecutionCoordinator.newBuilder<CommandSource>().build(),
-                Function.identity(),
-                Function.identity())
-        )
-        val commandManager: VelocityCommandManager<CommandSource> =
-            childInjector.getInstance(Key.get(object : TypeLiteral<VelocityCommandManager<CommandSource>>() {}))
-
-        val annotationParser: AnnotationParser<CommandSource> = AnnotationParser(commandManager, CommandSource::class.java) {
-            SimpleCommandMeta.empty()
-        }.installCoroutineSupport()
-        annotationParser.parse(TestCommand())
     }
 }

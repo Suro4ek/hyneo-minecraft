@@ -123,9 +123,9 @@ dependencies {
     implementation("cloud.commandframework", "cloud-kotlin-extensions", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-coroutines-annotations", cloudVersion)
     implementation("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
-    annotationProcessor("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
+//    annotationProcessor("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
 
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 //    implementation(libs.litecommands.core)
 //    implementation(libs.litecommands.velocity)
@@ -140,8 +140,6 @@ dependencies {
     compileOnly(libs.velocity)
 
     compileOnly(spigot("1.15.2"))
-
-
 
 //    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
 //    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-hocon", "1.3.3")
