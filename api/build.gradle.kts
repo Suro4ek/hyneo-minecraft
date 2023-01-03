@@ -85,7 +85,7 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-        relocate("cloud.commandframework", "eu.suro.shaded.cloud")
+//        relocate("cloud.commandframework", "eu.suro.shaded.cloud")
 //        minimize()
         exclude("**/*.kotlin_metadata")
 //        exclude("**/*.kotlin_module")
