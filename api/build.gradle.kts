@@ -15,7 +15,26 @@ plugins {
     `java-library`
 }
 
-version = System.getenv("BUILD_NUMBER")
+version = "1.0"
+
+//publishing {
+//    publications {
+//        create<MavenPublication>("shadow") {
+//            project.extensions.configure<com.github.jengelman.gradle.plugins.shadow.ShadowExtension>() {
+//                component(this@create)
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            credentials {
+//                username=System.getenv("NEXUS_USR")
+//                password=System.getenv("NEXUS_PSW")
+//            }
+//            url=uri("https://registry.hyneo.ru/repository/maven-releases/")
+//        }
+//    }
+//}
 
 publishing {
     publications {
@@ -27,11 +46,14 @@ publishing {
     }
     repositories {
         maven {
-            credentials {
-                username=System.getenv("NEXUS_USR")
-                password=System.getenv("NEXUS_PSW")
+            url = uri("https://gitlab.hyneo.ru/api/v4/projects/36/packages/maven")
+            credentials(HttpHeaderCredentials::class) {
+                name = "Private-Token"
+                value =  System.getenv("TOKEN")// the variable resides in $GRADLE_USER_HOME/gradle.properties
             }
-            url=uri("https://registry.hyneo.ru/repository/maven-releases/")
+            authentication {
+                create("header", HttpHeaderAuthentication::class)
+            }
         }
     }
 }
