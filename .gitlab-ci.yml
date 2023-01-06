@@ -9,6 +9,11 @@ before_script:
   - eval "$(ssh-agent -s)"
   - ssh-add ~/.ssh/id_rsa
 
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
 deploy:
   stage: deploy
   script:
