@@ -1,0 +1,2 @@
+[host]
+host1 ansible_host=mc.hyneo.ru ansible_port=223

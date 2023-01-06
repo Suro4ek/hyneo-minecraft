@@ -1,0 +1,10 @@
+# Деплой плагинов на хосты
+# Переменная deploy_plugins задается в host_vars/
+# Переменная artifacts_dir задается в команде вызова playbook'a
+---
+
+- name: Деплой плагинов на продакшн
+  copy:
+    dest: "{{ item.desc }}"
+    src: "{{ artifacts_dir }}/{{ item.artifact }}"
+  loop: "{{ deploy_plugins }}"

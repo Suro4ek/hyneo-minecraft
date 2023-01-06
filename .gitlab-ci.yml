@@ -12,10 +12,19 @@ before_script:
 deploy:
   stage: deploy
   script:
-    # Ansible playbook
+    #gradle build
     - chmod +x gradlew
     - ./gradlew api:clean api:shadowJar api:publish --stacktrace --warn
+    - mkdir artifacts
+    - find api/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
+    # Ansible playbook
+    - cp -r ansible ansible-untracked
+    - cd ansible-untracked
     - echo 'Ansible refuses to read from a world-writeable folder, hence' && chmod -v 700 $(pwd)
-    - ansible-playbook deploy-sites.yml
+    - ansible-playbook deploy-plugins.yml --extra-vars "artifacts_dir=./../artifacts"
+    - cd ..
+  artifacts: # артефакты сборки, которые можно потом скачать в Gitlab успешном билде
+    paths:
+      - artifacts
   only:
     - master
