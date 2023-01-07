@@ -41,7 +41,7 @@ open class Locale constructor(
      */
     @Throws(IOException::class)
     fun loadFromSite(path: String) {
-        val oracle = URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/$path$name.yml")
+        val oracle = URL("https://gitlab.hyneo.ru/hyneopublic/Localization/-/raw/main/lang/$path$name.yml")
         val map = YAML.loadAs(InputStreamReader(oracle.openStream()), LinkedHashMap::class.java) ?: return
         size = map.size
         addMessages(map)
@@ -54,7 +54,7 @@ open class Locale constructor(
      */
     @Throws(IOException::class)
     fun addFromSite(path: String) {
-        val oracle = URL("https://raw.githubusercontent.com/hyneo/Localization/main/lang/$path$name.yml")
+        val oracle = URL("https://gitlab.hyneo.ru/hyneopublic/Localization/-/raw/main/lang/$path$name.yml")
         val map = YAML.loadAs(InputStreamReader(oracle.openStream()), LinkedHashMap::class.java) ?: return
         size += map.size
         addMessages(map)
