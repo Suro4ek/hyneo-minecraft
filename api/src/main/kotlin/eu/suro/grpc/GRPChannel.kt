@@ -20,7 +20,9 @@ class GRPChannel {
                 }
                 val grpcConfig: GRPCConfig = YamlConfigurations.load(configFile.toPath(), GRPCConfig::class.java)
                 val credentials = InsecureChannelCredentials.create()
+                println(grpcConfig.host+":"+grpcConfig.port)
                 channel = Grpc.newChannelBuilder(grpcConfig.host + ":" + grpcConfig.port, credentials).build()
+                println(channel)
                 println("[GRPC] Запускаем канал связи с ядром")
             }
         }
