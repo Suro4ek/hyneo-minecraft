@@ -8,6 +8,7 @@ interface IUser {
     val id: Int
     val localeId: Int
     val name: String
+    val isAuth: Boolean
     var redisData: MutableMap<String, String>
     companion object{
         @JvmStatic fun getUsers(): Stream<IUser> = APIUser.userManager!!.getUsers()
