@@ -19,7 +19,7 @@ deploy:
   script:
     #gradle build
     - chmod +x gradlew
-    - gradle api:clean api:shadowJar api:publish --stacktrace --warn
+    - ./gradlew api:clean api:shadowJar api:publish --stacktrace --warn
     - mkdir artifacts
     - find api/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
     # Ansible playbook

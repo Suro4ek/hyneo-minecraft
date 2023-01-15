@@ -129,7 +129,7 @@ dependencies {
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.protobuf.kotlin)
 
-
+//    implementation("eu.suro.command-velocity:command-velocity:1.0.0")
     implementation(libs.configlib.yaml)
 
     implementation(libs.jedis)
