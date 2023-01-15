@@ -15,7 +15,7 @@ plugins {
     `java-library`
 }
 
-version = "1.0.1"
+version = "1.0.2"
 
 //publishing {
 //    publications {
@@ -118,8 +118,6 @@ tasks {
     }
 }
 
-
-val cloudVersion = "1.8.0"
 dependencies {
 
     implementation(kotlin("stdlib"))
@@ -137,15 +135,6 @@ dependencies {
     implementation(libs.jedis)
 
     implementation(libs.trove4j)
-
-
-    implementation("cloud.commandframework", "cloud-core", cloudVersion)
-    implementation("cloud.commandframework", "cloud-annotations", cloudVersion)
-    implementation("cloud.commandframework", "cloud-velocity", cloudVersion)
-    implementation("cloud.commandframework", "cloud-kotlin-extensions", cloudVersion)
-    implementation("cloud.commandframework", "cloud-kotlin-coroutines-annotations", cloudVersion)
-    implementation("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
-//    annotationProcessor("cloud.commandframework", "cloud-kotlin-coroutines", cloudVersion)
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
