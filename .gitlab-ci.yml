@@ -1,4 +1,4 @@
-image: registry.hyneo.ru/hyneosoftware/gradle-ansible:latest
+image: 192.168.88.200:8083/hyneosoftware/gradle-ansible:latest
 
 before_script:
   # Установка ssh ключей
@@ -19,7 +19,7 @@ deploy:
   script:
     #gradle build
     - chmod +x gradlew
-    - ./gradlew api:clean api:shadowJar api:publish --stacktrace --warn
+    - gradle api:clean api:shadowJar api:publish --stacktrace --warn
     - mkdir artifacts
     - find api/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
     # Ansible playbook
