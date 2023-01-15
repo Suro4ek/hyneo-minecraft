@@ -1,4 +1,4 @@
-image: 192.168.88.200:8083/hyneosoftware/gradle-ansible:latest
+image: registry.hyneo.ru/hyneosoftware/gradle-ansible:latest
 
 before_script:
   # Установка ssh ключей
