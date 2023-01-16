@@ -137,7 +137,7 @@ dependencies {
 
     compileOnly(libs.velocity)
 
-    implementation("eu.suro.command:command-velocity:1.0.1")
+    implementation("eu.suro.command:command-velocity:1.0.2")
 
     compileOnly(spigot("1.15.2"))
 
