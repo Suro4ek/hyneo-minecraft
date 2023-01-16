@@ -147,11 +147,11 @@ interface IUser {
 
     fun displayName(): String = prefix() + name
 
-    /**
-     * Получение игрока
-     * @return P - игрок
-     */
-    fun <T> player(): T
+//    /**
+//     * Получение игрока
+//     * @return P - игрок
+//     */
+//    fun <T> player(): T
 
     fun connect(paramString: String)
 
