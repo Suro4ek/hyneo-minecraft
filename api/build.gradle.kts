@@ -15,7 +15,7 @@ plugins {
     `java-library`
 }
 
-version = "1.0.6"
+version = "1.0.7"
 
 
 publishing {
@@ -137,7 +137,7 @@ dependencies {
 
     compileOnly(libs.velocity)
 
-    implementation("eu.suro.command:command-velocity:1.0.2")
+    implementation("eu.suro.command:command-velocity:1.0.3")
 
     compileOnly(spigot("1.15.2"))
 
