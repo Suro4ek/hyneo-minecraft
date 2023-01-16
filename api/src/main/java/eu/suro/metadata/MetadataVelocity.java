@@ -16,7 +16,7 @@ public final class MetadataVelocity {
     private static final AtomicBoolean SETUP = new AtomicBoolean(false);
 
     // lazily load
-    private static void ensureSetup() {
+    public static void ensureSetup() {
         if (SETUP.get()) {
             return;
         }

@@ -10,6 +10,7 @@ import com.velocitypowered.api.proxy.ProxyServer
 import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
 import eu.suro.messanger.listener.VelocityMessangerListener
+import eu.suro.metadata.MetadataVelocity
 import eu.suro.redis.RedisInit
 import eu.suro.redis.channel.RedisPacketListener
 import eu.suro.redis.platform.velocity.VelocityRedisEventImpl
@@ -43,5 +44,6 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){
         proxyServer.eventManager.register(this, VelocityMessangerListener())
+        MetadataVelocity.ensureSetup()
     }
 }

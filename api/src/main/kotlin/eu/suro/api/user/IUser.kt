@@ -153,6 +153,6 @@ interface IUser {
 //     */
 //    fun <T> player(): T
 
-    fun connect(paramString: String)
+//    fun connect(paramString: String)
 
 }
