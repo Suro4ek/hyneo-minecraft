@@ -15,26 +15,8 @@ plugins {
     `java-library`
 }
 
-version = "1.0.2"
+version = "1.0.3"
 
-//publishing {
-//    publications {
-//        create<MavenPublication>("shadow") {
-//            project.extensions.configure<com.github.jengelman.gradle.plugins.shadow.ShadowExtension>() {
-//                component(this@create)
-//            }
-//        }
-//    }
-//    repositories {
-//        maven {
-//            credentials {
-//                username=System.getenv("NEXUS_USR")
-//                password=System.getenv("NEXUS_PSW")
-//            }
-//            url=uri("https://registry.hyneo.ru/repository/maven-releases/")
-//        }
-//    }
-//}
 
 publishing {
     publications {
@@ -66,11 +48,24 @@ spigot {
     load = kr.entree.spigradle.data.Load.STARTUP
 }
 
-//compileJava.options.encoding = 'UTF-8'
-//compileTestJava.options.encoding = 'UTF-8'
-//targetCompatibility = '17'
-//sourceCompatibility = '17'
+val gitlabToken = if (System.getenv("CI_TOKEN") != null) {
+    System.getenv("CI_TOKEN")
+} else {
+    findProperty("gitLabPrivateToken")
+}
 
+repositories{
+    maven {
+        url = uri( "https://gitlab.hyneo.ru/api/v4/groups/39/-/packages/maven")
+        credentials(HttpHeaderCredentials::class) {
+            name = "Private-Token"
+            value = "$gitlabToken"
+        }
+        authentication {
+            create("header", HttpHeaderAuthentication::class)
+        }
+    }
+}
 
 
 java {
@@ -107,21 +102,16 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-//        relocate("cloud.commandframework", "eu.suro.shaded.cloud")
 //        minimize()
         exclude("**/*.kotlin_metadata")
 //        exclude("**/*.kotlin_module")
 //        exclude("**/*.kotlin_builtins")
-//        dependencies{
-//            exclude(libs.grpc.protobuf)
-//        }
     }
 }
 
 dependencies {
 
     implementation(kotlin("stdlib"))
-//    implementation(kotlin("reflect"))
     //ебал я в врот ваш netty пошел нахуй
     implementation(libs.grpc.okhttp)
     implementation(libs.grpc.stub)
@@ -138,9 +128,6 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
-//    implementation(libs.litecommands.core)
-//    implementation(libs.litecommands.velocity)
-//    implementation(libs.litecommands.bukkit)
     implementation(libs.guava)
 
     implementation(libs.inventory.framework)
@@ -150,6 +137,8 @@ dependencies {
 
     compileOnly(libs.velocity)
 
+    implementation("eu.suro.command:command-velocity:1.0")
+
     compileOnly(spigot("1.15.2"))
 
 //    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
@@ -157,7 +146,5 @@ dependencies {
 
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.9.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.9.0")
-//    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.8.0")
-//    implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.8.0")
 
 }

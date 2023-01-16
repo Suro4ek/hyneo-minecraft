@@ -96,5 +96,10 @@
       <option name="name" value="papermc" />
       <option name="url" value="https://repo.papermc.io/repository/maven-public" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven6" />
+      <option name="name" value="maven6" />
+      <option name="url" value="https://gitlab.hyneo.ru/api/v4/groups/39/-/packages/maven" />
+    </remote-repository>
   </component>
 </project>
