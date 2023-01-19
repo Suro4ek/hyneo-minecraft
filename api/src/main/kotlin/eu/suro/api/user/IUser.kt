@@ -5,7 +5,7 @@ import java.util.stream.Stream
 
 interface IUser {
 
-    val id: Int
+    val id: Long
     val localeId: Int
     val name: String
     val isAuth: Boolean
@@ -17,7 +17,7 @@ interface IUser {
          * @param id - id пользователя
          * @return пользователь
          */
-        @JvmStatic fun getUser(id: Int): IUser? =
+        @JvmStatic fun getUser(id: Long): IUser? =
             getUsers().filter { it.id == id }.findAny().orElse(null)
 
         /**
