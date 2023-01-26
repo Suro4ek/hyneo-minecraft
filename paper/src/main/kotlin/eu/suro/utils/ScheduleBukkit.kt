@@ -137,7 +137,7 @@ class ScheduleBukkit {
      * @param period период между запусками
      * @return this
      */
-    fun timer(delay: Long, period: Long, time: TimeUnit):ScheduleBukkit {
+    fun timer(delay: Long, period: Long, time: TimeUnit): ScheduleBukkit {
         schedule.runTaskTimer(plugin, toTime(delay, time), toTime(period, time))
         return this
     }
@@ -148,7 +148,7 @@ class ScheduleBukkit {
      * @param period период между запусками
      * @return this
      */
-    fun timer(delay: Long, period: Long):ScheduleBukkit {
+    fun timer(delay: Long, period: Long): ScheduleBukkit {
         schedule.runTaskTimer(plugin, delay, period)
         return this
     }

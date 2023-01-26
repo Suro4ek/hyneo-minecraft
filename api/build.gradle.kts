@@ -1,16 +1,7 @@
-/*
-блять просто помогает брать спокойно из воздуха spigot и bungee-cord,
-но если блять автор не обновит базу данных и придется переписывать весь код,
-то он пидарас
-*/
-import kr.entree.spigradle.kotlin.*
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     java
     kotlin("jvm")
-    id("com.github.johnrengelman.shadow") version libs.versions.shadow
-    id("kr.entree.spigradle") version libs.versions.spigradle
+//    id("com.github.johnrengelman.shadow") version libs.versions.shadow
     `maven-publish`
     `java-library`
 }
@@ -18,35 +9,27 @@ plugins {
 version = "1.0.12"
 
 
-publishing {
-    publications {
-        create<MavenPublication>("shadow") {
-            project.extensions.configure<com.github.jengelman.gradle.plugins.shadow.ShadowExtension>() {
-                component(this@create)
-            }
-        }
-    }
-    repositories {
-        maven {
-            url = uri("https://gitlab.hyneo.ru/api/v4/projects/36/packages/maven")
-            credentials(HttpHeaderCredentials::class) {
-                name = "Private-Token"
-                value =  System.getenv("TOKEN")// the variable resides in $GRADLE_USER_HOME/gradle.properties
-            }
-            authentication {
-                create("header", HttpHeaderAuthentication::class)
-            }
-        }
-    }
-}
-
-//plugin.yml
-spigot {
-    val authors1 = ArrayList<String>()
-    authors1.add("Suro")
-    authors = authors1
-    load = kr.entree.spigradle.data.Load.STARTUP
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("shadow") {
+//            project.extensions.configure<com.github.jengelman.gradle.plugins.shadow.ShadowExtension>() {
+//                component(this@create)
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url = uri("https://gitlab.hyneo.ru/api/v4/projects/36/packages/maven")
+//            credentials(HttpHeaderCredentials::class) {
+//                name = "Private-Token"
+//                value =  System.getenv("TOKEN")// the variable resides in $GRADLE_USER_HOME/gradle.properties
+//            }
+//            authentication {
+//                create("header", HttpHeaderAuthentication::class)
+//            }
+//        }
+//    }
+//}
 
 val gitlabToken = if (System.getenv("CI_TOKEN") != null) {
     System.getenv("CI_TOKEN")
@@ -86,13 +69,13 @@ tasks {
         options.encoding =  "UTF-8"
     }
 
-    prepareSpigotPlugins{
-        dependsOn(shadowJar)
-    }
-
-    generateSpigotDescription{
-        enabled = false
-    }
+//    prepareSpigotPlugins{
+//        dependsOn(shadowJar)
+//    }
+//
+//    generateSpigotDescription{
+//        enabled = false
+//    }
 
     processResources {
         filesMatching("*.json") {
@@ -100,13 +83,13 @@ tasks {
         }
     }
 
-    shadowJar {
-        archiveClassifier.set("")
-//        minimize()
-        exclude("**/*.kotlin_metadata")
-//        exclude("**/*.kotlin_module")
-//        exclude("**/*.kotlin_builtins")
-    }
+//    shadowJar {
+//        archiveClassifier.set("")
+////        minimize()
+//        exclude("**/*.kotlin_metadata")
+////        exclude("**/*.kotlin_module")
+////        exclude("**/*.kotlin_builtins")
+//    }
 }
 
 dependencies {
@@ -125,26 +108,18 @@ dependencies {
     implementation(libs.jedis)
 
     implementation(libs.trove4j)
+// https://mvnrepository.com/artifact/org.yaml/snakeyaml
+    compileOnly("org.yaml:snakeyaml:1.33")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
     implementation(libs.guava)
 
-    implementation(libs.inventory.framework)
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
-    compileOnly(libs.velocity)
-
-    implementation("eu.suro.command:command-velocity:1.0.9")
-
-    compileOnly(spigot("1.15.2"))
-
-//    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.3.3")
-//    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-hocon", "1.3.3")
-
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.9.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.9.0")
 
 }

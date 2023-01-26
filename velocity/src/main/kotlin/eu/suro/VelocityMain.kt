@@ -9,11 +9,11 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
 import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
-import eu.suro.messanger.listener.VelocityMessangerListener
-import eu.suro.metadata.MetadataVelocity
+import eu.suro.messanger.listener.MessageListener
+import eu.suro.metadata.Metadata
+import eu.suro.redis.RedisEventImpl
 import eu.suro.redis.RedisInit
 import eu.suro.redis.channel.RedisPacketListener
-import eu.suro.redis.platform.velocity.VelocityRedisEventImpl
 import eu.suro.utils.Log
 import java.nio.file.Path
 
@@ -28,7 +28,7 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
 
     companion object{
         @JvmStatic var instance: VelocityMain? = null
-        private set
+            private set
     }
 
     init {
@@ -38,12 +38,12 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
         Log.init(suspendingPluginContainer.logger)
         GRPChannel.init(dataDirectory.toFile())
         RedisInit.initRedis(dataDirectory.toFile())
-        MessangerInit.init(RedisPacketListener(VelocityRedisEventImpl()), "messenger", "messenger.proxy")
+        MessangerInit.init(RedisPacketListener(RedisEventImpl()), "messenger", "messenger.proxy")
     }
 
     @Subscribe
     fun onInit(event: ProxyInitializeEvent){
-        proxyServer.eventManager.register(this, VelocityMessangerListener())
-        MetadataVelocity.ensureSetup()
+        proxyServer.eventManager.register(this, MessageListener())
+        Metadata.ensureSetup()
     }
 }

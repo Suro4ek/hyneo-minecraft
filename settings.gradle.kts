@@ -62,5 +62,7 @@ pluginManagement {
         maven("https://repo.screamingsandals.org/public/")
     }
 }
-
-
+include("velocity")
+include("paper")
+include("velocity")
+include("paper")
