@@ -102,7 +102,6 @@ dependencies {
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.protobuf.kotlin)
 
-//    implementation("eu.suro.command-velocity:command-velocity:1.0.0")
     implementation(libs.configlib.yaml)
 
     implementation(libs.jedis)
@@ -112,14 +111,10 @@ dependencies {
     compileOnly("org.yaml:snakeyaml:1.33")
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
     implementation(libs.guava)
 
-
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
-
-
 }
