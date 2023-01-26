@@ -1,5 +1,8 @@
 rootProject.name = "hyneo-minecraft"
 include("api")
+include("velocity")
+include("paper")
+
 enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement{
@@ -62,7 +65,3 @@ pluginManagement {
         maven("https://repo.screamingsandals.org/public/")
     }
 }
-include("velocity")
-include("paper")
-include("velocity")
-include("paper")
