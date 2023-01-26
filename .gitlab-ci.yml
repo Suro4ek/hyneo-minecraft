@@ -21,7 +21,8 @@ deploy:
     - chmod +x gradlew
     - ./gradlew paper:clean paper:shadowJar paper:publish velocity:clean velocity:shadowJar velocity:publish --stacktrace --warn
     - mkdir artifacts
-    - find api/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
+    - find paper/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
+    - find velocity/build/libs -maxdepth 1 -name '*.jar' -exec cp {} artifacts  \; || true
     # Ansible playbook
     - cp -r ansible ansible-untracked
     - cd ansible-untracked
