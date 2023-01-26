@@ -42,6 +42,7 @@ publishing {
 
 //plugin.yml
 spigot {
+    name = "hncapi"
     val authors1 = ArrayList<String>()
     authors1.add("Suro")
     authors = authors1
