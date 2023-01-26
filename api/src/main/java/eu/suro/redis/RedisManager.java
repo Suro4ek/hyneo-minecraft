@@ -2,6 +2,7 @@ package eu.suro.redis;
 
 import eu.suro.redis.channel.RedisPacketListener;
 import eu.suro.redis.types.RedisObject;
+import org.redisson.api.RedissonClient;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPubSub;
@@ -21,11 +22,11 @@ import java.util.function.Consumer;
  */
 public abstract class RedisManager
 {
-    private final JedisPool jedisPool;
+    private final RedissonClient jedisPool;
     private final ExecutorService service;
     private final Jedis jedis;
 
-    public RedisManager(final JedisPool jedisPool) {
+    public RedisManager(final RedissonClient jedisPool) {
         this.jedisPool = jedisPool;
         this.service = Executors.newCachedThreadPool();
         this.jedis = jedisPool.getResource();

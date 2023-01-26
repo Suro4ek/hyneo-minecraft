@@ -2,6 +2,10 @@ package eu.suro.redis;
 
 import de.exlll.configlib.YamlConfigurations;
 import eu.suro.utils.Log;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.TransportMode;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -21,14 +25,19 @@ public class RedisInit {
         if(!configFile.exists())
             YamlConfigurations.save(configFile.toPath(), RedisConfig.class, redisConfig);
         redisConfig = YamlConfigurations.load(configFile.toPath(), RedisConfig.class);
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig,
-                                            redisConfig.getHost(),
-                                            redisConfig.getPort(),
-                                     0,
-                                            redisConfig.getPassword(),
-                                            false
-        );
+        Config jedisPoolConfig = new Config();
+//        jedisPoolConfig.setTransportMode(TransportMode.EPOLL);
+        jedisPoolConfig.useSingleServer().setAddress("redis://"+redisConfig.getHost()+":"+redisConfig.getPort());
+        jedisPoolConfig.useSingleServer().setPassword(redisConfig.getPassword());
+//        RedissonClient jedisPool = new RedissonClient(jedisPoolConfig,
+//                redisConfig.getHost(),
+//                redisConfig.getPort(),
+//                0,
+//                redisConfig.getPassword(),
+//                false
+//        ) {
+//        };
+        RedissonClient jedisPool = Redisson.create(jedisPoolConfig);
         RedisManager redisManager = new RedisManager(jedisPool){
             @Override
             protected void runAsync(Runnable task) {

@@ -104,16 +104,21 @@ dependencies {
 
     implementation(libs.configlib.yaml)
 
-    implementation(libs.jedis)
+//    implementation(libs.jedis)
+    implementation("org.redisson:redisson:3.19.1")
 
     implementation(libs.trove4j)
 // https://mvnrepository.com/artifact/org.yaml/snakeyaml
     compileOnly("org.yaml:snakeyaml:1.33")
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
+    //caffeine
+    implementation("com.github.ben-manes.caffeine:caffeine:3.1.2")
+    implementation("com.github.ben-manes.caffeine:guava:3.1.2")
+//    implementation("com.github.ben-manes.caffeine:jcache:3.1.2")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
-    implementation(libs.guava)
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
