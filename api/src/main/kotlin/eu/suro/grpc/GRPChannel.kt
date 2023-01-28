@@ -7,7 +7,10 @@ import io.grpc.ManagedChannel
 import java.io.File
 
 class GRPChannel {
-
+    /**
+     * Создание канала для подключения к серверу
+     * @param dataFolder - Папка с конфигом
+     */
     companion object{
         var channel: ManagedChannel? = null
         private set
