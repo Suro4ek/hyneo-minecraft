@@ -1,7 +1,9 @@
 package eu.suro.redis
 
 import de.exlll.configlib.Comment
+import de.exlll.configlib.Configuration
 
+@Configuration
 class RedisConfig {
     @Comment("Адрес сервера редиса")
     var host = "localhost"

@@ -1,6 +1,5 @@
 package eu.suro
 
-//import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
 import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
 import eu.suro.messanger.listener.BukkitMessage
