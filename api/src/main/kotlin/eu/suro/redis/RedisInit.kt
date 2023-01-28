@@ -1,6 +1,7 @@
 package eu.suro.redis
 
 import de.exlll.configlib.YamlConfigurations
+import eu.suro.api.user.UserRedis
 import eu.suro.utils.Log
 import org.redisson.Redisson
 import org.redisson.config.Config
@@ -38,8 +39,8 @@ object RedisInit {
                 service.execute(task)
             }
         }
-
         Log.info("[redis] Запускаем редис")
         Redis.init(redisManager)
+        jedisPool.liveObjectService.registerClass(UserRedis::class.java)
     }
 }
