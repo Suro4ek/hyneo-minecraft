@@ -7,7 +7,7 @@ import java.io.Serializable
 
 
 @REntity
-data class UserRedis constructor(
+open class UserRedis constructor(
     @RId
     var id: String,
     @RIndex
@@ -18,6 +18,17 @@ data class UserRedis constructor(
     var register_ip: String,
     var locale_id: Int,
     var auth: Boolean,
-) : Serializable{
+) {
 
+    override fun toString()
+    = """{
+        |"id":$id,
+        |"name":"$username",
+        |"ip":$ip,
+        |"prefix":$prefix,
+        |"last_server":$last_server,
+        |"register_ip:$register_ip,
+        |"locale_id:$locale_id,
+        |"auth":$auth
+        |}""".trimMargin()
 }
