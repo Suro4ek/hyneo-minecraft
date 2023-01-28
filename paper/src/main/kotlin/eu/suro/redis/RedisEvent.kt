@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList
 /*
    * Реализация ивента для получения данных из Redis
 */
-data class RedisEvent constructor(val channel: String, val message: String): Event() {
+data class RedisEvent<T> constructor(val channel: String, val obj: T): Event() {
     override fun getHandlers(): HandlerList {
         return Companion.handlers
     }

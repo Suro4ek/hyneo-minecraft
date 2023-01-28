@@ -106,6 +106,7 @@ dependencies {
 
 //    implementation(libs.jedis)
     implementation("org.redisson:redisson:3.19.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     implementation(libs.trove4j)
 // https://mvnrepository.com/artifact/org.yaml/snakeyaml

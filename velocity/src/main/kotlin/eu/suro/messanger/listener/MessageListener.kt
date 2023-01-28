@@ -5,9 +5,9 @@ import eu.suro.messanger.MessangerInit
 import eu.suro.redis.RedisEvent
 
 
-class MessageListener {
+class MessageListener<T> {
     @Subscribe
-    fun on(e: RedisEvent) {
-        MessangerInit.onPluginMessageReceived(e.message)
+    fun on(e: RedisEvent<T>) {
+        MessangerInit.onPluginMessageReceived(e.channel, e.obj)
     }
 }

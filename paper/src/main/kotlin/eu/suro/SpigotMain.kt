@@ -3,6 +3,7 @@ package eu.suro
 //import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
 import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
+import eu.suro.messanger.listener.BukkitMessage
 import eu.suro.messanger.listener.MessageListener
 import eu.suro.metadata.Metadata
 import eu.suro.redis.RedisEventImpl
@@ -24,8 +25,8 @@ class SpigotMain: JavaPlugin() {
 //        Log.init(logger)
         GRPChannel.init(dataFolder)
         RedisInit.initRedis(dataFolder)
-        MessangerInit.init(RedisPacketListener(RedisEventImpl()),  "messenger", "messenger.bukkit")
-        server.pluginManager.registerEvents(MessageListener(), this)
+        MessangerInit.init(RedisPacketListener(RedisEventImpl<BukkitMessage>()),  "messenger.bukkit", BukkitMessage::class.java)
+        server.pluginManager.registerEvents(MessageListener<BukkitMessage>(), this)
         instance = this;
         Metadata.ensureSetup()
     }

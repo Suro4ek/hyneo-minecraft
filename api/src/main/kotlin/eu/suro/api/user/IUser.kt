@@ -37,113 +37,112 @@ interface IUser {
             APIUser.userManager!!.getUser(player)
     }
 
-    /**
-     * Получение строку из redis
-     * @param key - ключ
-     * @return строка
-     */
-    fun getRedisData(key: String): String? = (
-            if(redisData[key] != null && redisData[key]!!.isEmpty()){
-                null
-            }else{
-                redisData[key]
-            })
+//    /**
+//     * Получение строку из redis
+//     * @param key - ключ
+//     * @return строка
+//     */
+//    fun getRedisData(key: String): String? = (
+//            if(redisData[key] != null && redisData[key]!!.isEmpty()){
+//                null
+//            }else{
+//                redisData[key]
+//            })
 
-    /**
-     * Получение строки из redis
-     * @param key - ключ
-     * @param defaultValue - значение по умолчанию
-     * @return строка
-     */
-    fun getRedisData(key: String, defaultValue: String): String = getRedisData(key) ?: defaultValue
-
-    /**
-     * Получение данных из redis
-     * @param key - ключ
-     * @return данные
-     */
-    fun <T> getRedisData(key: String, clazz: Class<T>): T? = Redis.parseRedisData(getRedisData(key), clazz)
+//    /**
+//     * Получение строки из redis
+//     * @param key - ключ
+//     * @param defaultValue - значение по умолчанию
+//     * @return строка
+//     */
+//    fun getRedisData(key: String, defaultValue: String): String = getRedisData(key) ?: defaultValue
 
     /**
      * Получение данных из redis
      * @param key - ключ
-     * @param def - значение по умолчанию
-     * @return данных
-     */
-    fun <T: Any> getRedisData(key: String, defaultValue: T?): T? =
-        defaultValue?.let { getRedisData(key, it::class.java) } ?: defaultValue
-
-    /**
-     * Удаление данных из redis
-     * @param key - ключ
-     * @return удаленные данные
-     */
-    fun <T> removeRedisData(key: String): String? {
-        val obj = redisData.remove(key)
-        Redis.pipeline{pipeline ->
-            val userKey: String = "user:" + name.lowercase()
-            pipeline.hdel(userKey, key)
-            pipeline.expire(userKey, 30)
-        }
-        return obj
-    }
-
-    /**
-     * Установка данных в redis
-     * @param key - ключ
-     * @param value - значение
      * @return данные
      */
-    fun <T> putRedisData(key: String, value: T): T {
-        if (value != null) {
-            redisData[key] = value.toString()
-        } else {
-            redisData.remove(key)
-        }
-        return value
-    }
+    fun getRedisData(): UserRedis? = Redis.manager.jedisPool.liveObjectService.get(UserRedis::class.java, id)
+//    /**
+//     * Получение данных из redis
+//     * @param key - ключ
+//     * @param def - значение по умолчанию
+//     * @return данных
+//     */
+//    fun <T: Any> getRedisData(key: String, defaultValue: T?): T? =
+//        defaultValue?.let { getRedisData(key, it::class.java) } ?: defaultValue
 
-    /**
-     * Перезапис данных в redis
-     * @param key - ключ
-     * @param value - значение
-     * @return данные
-     */
-    fun <T> setRedisData(key: String, value: T?): T? {
-        putRedisData(key, value)
-        Redis.pipeline { pipeline ->
-            val userKey: String = "user:" + name.lowercase()
-            if(value != null){
-                pipeline.hset(userKey, key, value.toString())
-            }else{
-                pipeline.hdel(userKey, key);
-            }
-            pipeline.expire(userKey, 30)
-        }
-        return value
-    }
+//    /**
+//     * Удаление данных из redis
+//     * @param key - ключ
+//     * @return удаленные данные
+//     */
+//    fun <T> removeRedisData(key: String): String? {
+//        val obj = redisData.remove(key)
+//        Redis.pipeline{pipeline ->
+//            val userKey: String = "user:" + name.lowercase()
+//            pipeline.hdel(userKey, key)
+//            pipeline.expire(userKey, 30)
+//        }
+//        return obj
+//    }
 
-    /**
-     * Проверить есть ли данные в redis
-     * @param key - ключ
-     * @return boolean
-     */
-    fun hasRedisData(key: String): Boolean = getRedisData(key) != null
+//    /**
+//     * Установка данных в redis
+//     * @param key - ключ
+//     * @param value - значение
+//     * @return данные
+//     */
+//    fun <T> putRedisData(key: String, value: T): T {
+//        if (value != null) {
+//            redisData[key] = value.toString()
+//        } else {
+//            redisData.remove(key)
+//        }
+//        return value
+//    }
 
-    /**
-     * Получить или записать данных из redis
-     * @param key - ключ
-     * @param value - значение
-     * @return данные
-     */
+//    /**
+//     * Перезапис данных в redis
+//     * @param key - ключ
+//     * @param value - значение
+//     * @return данные
+//     */
+//    fun <T> setRedisData(key: String, value: T?): T? {
+//        putRedisData(key, value)
+//        Redis.pipeline { pipeline ->
+//            val userKey: String = "user:" + name.lowercase()
+//            if(value != null){
+//                pipeline.hset(userKey, key, value.toString())
+//            }else{
+//                pipeline.hdel(userKey, key);
+//            }
+//            pipeline.expire(userKey, 30)
+//        }
+//        return value
+//    }
 
-    fun <T: Any> getOrSetRedisData(key: String, value: T?): T? = getRedisData(key, value) ?: setRedisData(key, value)
+//    /**
+//     * Проверить есть ли данные в redis
+//     * @param key - ключ
+//     * @return boolean
+//     */
+//    fun hasRedisData(key: String): Boolean = getRedisData(key) != null
+
+//    /**
+//     * Получить или записать данных из redis
+//     * @param key - ключ
+//     * @param value - значение
+//     * @return данные
+//     */
+//
+//    fun <T: Any> getOrSetRedisData(key: String, value: T?): T? = getRedisData(key, value) ?: setRedisData(key, value)
 
     /**
      * Получение префикса из redis
      * @return String - prefix
      */
-    fun prefix(): String = getRedisData("prefix", "")
+    fun prefix(): String = getRedisData()?.prefix ?: ""
 
     fun displayName(): String = prefix() + name
 
