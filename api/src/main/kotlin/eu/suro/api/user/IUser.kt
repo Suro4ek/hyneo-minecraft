@@ -62,7 +62,7 @@ interface IUser {
      * @param key - ключ
      * @return данные
      */
-    fun getRedisData(): UserRedis? = Redis.manager.jedisPool.liveObjectService.get(UserRedis::class.java, id)
+    fun getRedisData(): UserRedis? = Redis.manager.jedisPool.liveObjectService.get(UserRedis::class.java, id.toString())
 //    /**
 //     * Получение данных из redis
 //     * @param key - ключ
