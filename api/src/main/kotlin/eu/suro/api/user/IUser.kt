@@ -40,7 +40,7 @@ interface IUser {
          * Получение пользователей из redis
          * @return Collection<UserRedis> - список пользователей
          */
-        @JvmStatic fun getRedisUsers(): Collection<UserRedis> = Redis.manager.jedisPool.liveObjectService.find(UserRedis::class.java, null)
+        @JvmStatic fun getRedisUsers(): Collection<IUserRedis> = Redis.manager.jedisPool.liveObjectService.find(IUserRedis::class.java, null)
     }
 
 //    /**
@@ -67,13 +67,13 @@ interface IUser {
      * Получение данных из redis
      * @return данные
      */
-    fun getRedisData(): UserRedis? = Redis.manager.jedisPool.liveObjectService.get(UserRedis::class.java, id.toString())
+    fun getRedisData(): IUserRedis? = Redis.manager.jedisPool.liveObjectService.get(IUserRedis::class.java, id.toString())
 
     /**
      * Удаления данных из redis
      * @return void
      */
-    fun deleteRedisData() = Redis.manager.jedisPool.liveObjectService.delete(UserRedis::class.java, id.toString())
+    fun deleteRedisData() = Redis.manager.jedisPool.liveObjectService.delete(IUserRedis::class.java, id.toString())
 
     /**
      * Проверить есть ли данные в redis
