@@ -35,6 +35,12 @@ interface IUser {
          */
         @JvmStatic fun getUser(player: Any): IUser? =
             APIUser.userManager!!.getUser(player)
+
+        /**
+         * Получение пользователей из redis
+         * @return Collection<UserRedis> - список пользователей
+         */
+        @JvmStatic fun getRedisUsers(): Collection<UserRedis> = Redis.manager.jedisPool.liveObjectService.find(UserRedis::class.java, null)
     }
 
 //    /**
@@ -59,10 +65,22 @@ interface IUser {
 
     /**
      * Получение данных из redis
-     * @param key - ключ
      * @return данные
      */
     fun getRedisData(): UserRedis? = Redis.manager.jedisPool.liveObjectService.get(UserRedis::class.java, id.toString())
+
+    /**
+     * Удаления данных из redis
+     * @return void
+     */
+    fun deleteRedisData() = Redis.manager.jedisPool.liveObjectService.delete(UserRedis::class.java, id.toString())
+
+    /**
+     * Проверить есть ли данные в redis
+     * @param key - ключ
+     * @return boolean
+     */
+    fun hasRedisData(key: String): Boolean = getRedisData() != null
 //    /**
 //     * Получение данных из redis
 //     * @param key - ключ
