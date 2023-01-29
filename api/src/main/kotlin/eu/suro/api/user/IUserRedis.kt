@@ -1,7 +1,9 @@
 package eu.suro.api.user
 
+import org.redisson.api.annotation.REntity
 
-//@REntity
+
+@REntity
 interface IUserRedis {
 //    @RId
     var id: String
