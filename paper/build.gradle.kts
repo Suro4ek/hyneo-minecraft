@@ -13,6 +13,7 @@ plugins {
     id("kr.entree.spigradle") version libs.versions.spigradle
     `maven-publish`
     `java-library`
+//    id("org.screamingsandals.nms-mapper") version 'LATEST_VERSION_HERE'
 }
 
 version = "1.0.16"
@@ -65,6 +66,9 @@ repositories{
         authentication {
             create("header", HttpHeaderAuthentication::class)
         }
+    }
+    maven {
+        url = "https://repo.screamingsandals.org/public/"
     }
 }
 

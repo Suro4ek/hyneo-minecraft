@@ -1,7 +1,9 @@
 package eu.suro.api.user
 
 import eu.suro.redis.Redis
+import org.redisson.api.condition.Conditions
 import java.util.stream.Stream
+import kotlin.coroutines.Continuation
 
 interface IUser {
 
@@ -40,7 +42,8 @@ interface IUser {
          * Получение пользователей из redis
          * @return Collection<UserRedis> - список пользователей
          */
-        @JvmStatic fun getRedisUsers(): Collection<UserRedis> = Redis.manager.jedisPool.liveObjectService.find(UserRedis::class.java, null)
+        @JvmStatic fun getRedisUsers(): Collection<UserRedis> = Redis.manager.jedisPool.liveObjectService.
+        find(UserRedis::class.java, Conditions.eq("auth", true))
     }
 
 //    /**
