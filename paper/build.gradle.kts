@@ -67,9 +67,9 @@ repositories{
             create("header", HttpHeaderAuthentication::class)
         }
     }
-    maven {
-        url = "https://repo.screamingsandals.org/public/"
-    }
+//    maven {
+//        url = "https://repo.screamingsandals.org/public/"
+//    }
 }
 
 
