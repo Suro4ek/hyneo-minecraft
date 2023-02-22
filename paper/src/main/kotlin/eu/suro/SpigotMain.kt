@@ -1,6 +1,5 @@
 package eu.suro
 
-import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
 import eu.suro.messanger.listener.BukkitMessage
 import eu.suro.messanger.listener.MessageListener
@@ -22,7 +21,6 @@ class SpigotMain: JavaPlugin() {
     override fun onEnable() {
         //TODO edit
 //        Log.init(logger)
-        GRPChannel.init(dataFolder)
         RedisInit.initRedis(dataFolder)
         MessangerInit.init(RedisPacketListener(RedisEventImpl<BukkitMessage>()),  "messenger.bukkit", BukkitMessage::class.java)
         server.pluginManager.registerEvents(MessageListener<BukkitMessage>(), this)

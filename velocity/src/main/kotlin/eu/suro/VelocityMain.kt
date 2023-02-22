@@ -7,7 +7,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.PluginContainer
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
-import eu.suro.grpc.GRPChannel
 import eu.suro.messanger.MessangerInit
 import eu.suro.messanger.listener.MessageListener
 import eu.suro.messanger.listener.VelocityMessage
@@ -37,7 +36,6 @@ class VelocityMain @Inject constructor(suspendingPluginContainer: SuspendingPlug
         instance = this;
 
         Log.init(suspendingPluginContainer.logger)
-        GRPChannel.init(dataDirectory.toFile())
         RedisInit.initRedis(dataDirectory.toFile())
         MessangerInit.init(RedisPacketListener(RedisEventImpl<VelocityMessage>()), "messenger.proxy", VelocityMessage::class.java)
     }
