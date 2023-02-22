@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: igar
+  remote_user: server
 
   roles:
     - deploy_plugins

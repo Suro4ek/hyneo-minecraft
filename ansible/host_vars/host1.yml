@@ -1,3 +1,3 @@
 deploy_plugins:
-  - desc: ~/Server/proxy/plugins/api.jar
-    artifact: velocity-1.0.17.jar
+  - desc: ~/server/proxy/plugins/api.jar
+    artifact: velocity-1.0.18.jar

@@ -16,7 +16,7 @@ plugins {
 //    id("org.screamingsandals.nms-mapper") version 'LATEST_VERSION_HERE'
 }
 
-version = "1.0.16"
+version = "1.0.18"
 
 
 publishing {
