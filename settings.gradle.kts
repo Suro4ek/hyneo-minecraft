@@ -65,3 +65,4 @@ pluginManagement {
         maven("https://repo.screamingsandals.org/public/")
     }
 }
+include("nms")
