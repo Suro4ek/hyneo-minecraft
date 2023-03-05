@@ -35,7 +35,6 @@ publishing {
     }
 }
 
-
 val gitlabToken = if (System.getenv("CI_TOKEN") != null) {
     System.getenv("CI_TOKEN")
 } else {
