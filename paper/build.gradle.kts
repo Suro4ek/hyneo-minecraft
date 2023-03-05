@@ -13,10 +13,9 @@ plugins {
     id("kr.entree.spigradle") version libs.versions.spigradle
     `maven-publish`
     `java-library`
-//    id("org.screamingsandals.nms-mapper") version 'LATEST_VERSION_HERE'
 }
 
-version = "1.0.18"
+version = "1.0.19"
 
 
 publishing {
@@ -109,9 +108,8 @@ dependencies {
 
     implementation(libs.inventory.framework)
 
-    compileOnly(spigot("1.15.2"))
+    compileOnly(paper("1.19.3"))
     implementation(project(":api"))
-    implementation(project(":nms"))
     compileOnly("io.netty:netty-all:5.0.0.Alpha2")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.9.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.9.0")

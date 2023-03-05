@@ -1,30 +1,20 @@
 package eu.suro
 
-import eu.suro.messanger.MessangerInit
-import eu.suro.messanger.listener.BukkitMessage
-import eu.suro.messanger.listener.MessageListener
-import eu.suro.metadata.Metadata
-import eu.suro.redis.RedisEventImpl
-import eu.suro.redis.RedisInit
-import eu.suro.redis.channel.RedisPacketListener
-import kr.entree.spigradle.annotations.SpigotPlugin
-import org.bukkit.plugin.java.JavaPlugin
+import com.github.shynixn.mccoroutine.bukkit.SuspendingJavaPlugin
+import org.bukkit.Bukkit
 
-@SpigotPlugin
-class SpigotMain: JavaPlugin() {
 
+class SpigotMain : SuspendingJavaPlugin(){
     companion object{
-        @JvmStatic var instance: SpigotMain? = null
-            private set;
+        lateinit var instance: SpigotMain
+    }
+    override suspend fun onEnableAsync() {
+        println("[MCCoroutineSamplePlugin] OnEnable on Primary Thread: " + Bukkit.isPrimaryThread())
+        instance = this
+        eu.suro.metadata.Metadata.ensureSetup()
     }
 
-    override fun onEnable() {
-        //TODO edit
-//        Log.init(logger)
-        RedisInit.initRedis(dataFolder)
-        MessangerInit.init(RedisPacketListener(RedisEventImpl<BukkitMessage>()),  "messenger.bukkit", BukkitMessage::class.java)
-        server.pluginManager.registerEvents(MessageListener<BukkitMessage>(), this)
-        instance = this;
-        Metadata.ensureSetup()
-    }
+//    override fun onEnable() {
+//
+//    }
 }

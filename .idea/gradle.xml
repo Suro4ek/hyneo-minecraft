@@ -6,14 +6,15 @@
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="17" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/api" />
+            <option value="$PROJECT_DIR$/nbt" />
             <option value="$PROJECT_DIR$/nms" />
+            <option value="$PROJECT_DIR$/packets" />
             <option value="$PROJECT_DIR$/paper" />
             <option value="$PROJECT_DIR$/velocity" />
           </set>

@@ -19,7 +19,7 @@ object Metadata {
         if (SETUP.get()) {
             return
         }
-        Bukkit.getPluginManager().registerEvents(MetadataListener(), instance!!)
+        Bukkit.getPluginManager().registerEvents(MetadataListener(), instance)
         if (!SETUP.getAndSet(true)) {
             timerAsync({ StandardMetadataRegistries.USER_METADATA_REGISTRY.cleanup() }, 1, 1, TimeUnit.MINUTES)
         }

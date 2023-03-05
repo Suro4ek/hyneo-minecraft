@@ -1,0 +1,6 @@
+main: eu.suro.SpigotMain
+name: hncapi
+version: 1.0.18
+authors:
+  - Suro
+api-version: 1.19
