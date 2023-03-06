@@ -15,7 +15,7 @@ plugins {
     `java-library`
 }
 
-version = "1.0.19"
+version = "1.0.20"
 
 
 publishing {
@@ -110,6 +110,7 @@ dependencies {
 
     compileOnly(paper("1.19.3"))
     implementation(project(":api"))
+    implementation("com.github.Exlll.ConfigLib:configlib-paper:v4.2.0")
     compileOnly("io.netty:netty-all:5.0.0.Alpha2")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-api:2.9.0")
     implementation("com.github.shynixn.mccoroutine:mccoroutine-bukkit-core:2.9.0")
