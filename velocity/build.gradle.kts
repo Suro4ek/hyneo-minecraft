@@ -89,9 +89,9 @@ dependencies {
     implementation(project(":api"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
-    compileOnly(libs.velocity)
+    compileOnly("com.velocitypowered:velocity-api:3.2.0-SNAPSHOT")
     implementation("eu.suro.command:command-velocity:1.0.9")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.9.0")
-    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.9.0")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-api:2.12.1")
+    implementation("com.github.shynixn.mccoroutine:mccoroutine-velocity-core:2.12.1")
 
 }
